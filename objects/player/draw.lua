@@ -14,6 +14,6 @@ return function (Player)
     function Player:draw_draw()
         local sx = (1-self.draw_bounce)
         local sy = (1+self.draw_bounce)
-        love.graphics.draw(Image.player, self.x, self.y, self.dir, sx, sy, self.w/2, self.h/2)
+        love.graphics.draw(Image.player, self.x+self.w/2, self.y+self.h/2, self.dir, sx, sy, self.w/2, self.h/2)
     end
 end

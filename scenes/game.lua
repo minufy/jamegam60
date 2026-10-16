@@ -45,6 +45,7 @@ end
 function Game:reset()
     self.objects = {}
     self:add(Player.new())
+    self.box = self:add(Box.new(300, 200))
     -- Level:load_level(tostring(self.current_level), self)
 end
 
