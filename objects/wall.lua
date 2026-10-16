@@ -12,7 +12,7 @@ end
 
 function Wall:draw()
     if CONSOLE then
-        love.graphics.setColor(0, 1, 1)
+        love.graphics.setColor(0, 1, 1, 0.2)
         love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
         Color.reset()
     end

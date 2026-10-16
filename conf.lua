@@ -1,5 +1,5 @@
-WINDOW_W = 320
-WINDOW_H = 240
+WINDOW_W = 400
+WINDOW_H = 300
 CONSOLE = os.getenv("CONSOLE") == "true"
 
 function love.conf(t)

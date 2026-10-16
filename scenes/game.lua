@@ -8,7 +8,7 @@ end
 
 function Game:update(dt)
     if CONSOLE and Input.refresh.pressed then
-        -- Level:refresh()
+        Level:refresh()
         self:reset()
     end
 

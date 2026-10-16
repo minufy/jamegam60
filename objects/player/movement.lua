@@ -1,7 +1,8 @@
-local speed = 2.4
+local speed = 2
 local acc_damp = 0.2
 local dec_damp = 0.1
-local dir_damp = 0.4
+local bullet_time = 4
+local recoil_force = 2
 
 return function (Player)
     function Player:init_movement()
@@ -9,6 +10,10 @@ return function (Player)
         self.my = 0
         self.dir = 0
         self.speed = speed
+
+        self.bullet_time = bullet_time
+        self.bullet_timer = 0
+        self.bullet_speed = 10
 
         self.draw_bounce = 0
 
@@ -62,8 +67,34 @@ return function (Player)
         Game:col(self, FILTERS.wall, self.movement_cbs.y)
     end
 
+    function Player:aim_and_attack(dt)
+        self.dir = math.atan2(Input:get_y()-self.y, Input:get_x()-self.x)
+        if self.bullet_timer <= 0 then
+            if Input.mb[1].pressed then
+                self:fire()
+            end
+        else
+            self.bullet_timer = self.bullet_timer-dt
+        end
+    end
+    
+    function Player:fire()
+        local cos = math.cos(self.dir)
+        local sin = math.sin(self.dir)
+        self.mx = self.mx-cos*recoil_force
+        self.my = self.my-sin*recoil_force
+        local x = self.x+self.w/2+cos*self.w
+        local y = self.y+self.h/2+sin*self.h
+        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed))
+        self.bullet_timer = self.bullet_time
+        Camera:shake(2)
+        for _ = 1, 3 do
+            Game:add(SparkParticle.new(x, y, self.dir+math.random(-10, 10)*0.05, math.random(2, 4), math.random(2, 4)))
+        end
+    end
+
     function Player:update_movement(dt)
         self:move(dt)
-        self.dir = math.atan2(Input:get_y()-self.y, Input:get_x()-self.x)
+        self:aim_and_attack(dt)
     end
 end
