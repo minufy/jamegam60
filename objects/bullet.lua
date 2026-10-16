@@ -7,7 +7,7 @@ function Bullet.new(x, y, dir, speed)
     self.y = y
     self.dir = dir
     self.speed = speed
-    self.radius = 4
+    self.radius = 3
     self.w = self.radius
     self.h = self.radius
     return self
@@ -25,7 +25,7 @@ function Bullet:update(dt)
 end
 
 function Bullet:draw()
-    love.graphics.circle("fill", self.x, self.y, 2)
+    love.graphics.circle("fill", self.x, self.y, self.radius)
 end
 
 return Bullet

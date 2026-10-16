@@ -1,7 +1,7 @@
 local speed = 2
 local acc_damp = 0.2
 local dec_damp = 0.1
-local bullet_time = 4
+local bullet_time = 10
 local recoil_force = 2
 
 return function (Player)
