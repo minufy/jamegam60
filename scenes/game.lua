@@ -63,7 +63,7 @@ function Game:draw_bg()
     Color.reset()
 end
 
-local box_w, box_h = 300, 200
+local box_w, box_h = 340, 240
 local enemy_spawn_time = 100
 function Game:reset()
     self.objects = {}
