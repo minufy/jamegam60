@@ -5,8 +5,8 @@ local move_damp = 0.2
 
 function Box.new(w, h)
     local self = setmetatable({}, Box)
-    self.x = Res.w/2-w/2-WALL_WIDTH/2
-    self.y = Res.h/2-h/2-WALL_WIDTH/2
+    self.x = 0
+    self.y = 0
     self.w = w
     self.h = h
     self.target_x = self.x
@@ -48,8 +48,10 @@ function Box:update(dt)
 end
 
 function Box:draw()
+    love.graphics.setColor(Color.fg)
     love.graphics.setLineWidth(WALL_WIDTH)
     love.graphics.rectangle("line", self.x+WALL_WIDTH/2, self.y+WALL_WIDTH/2, self.w, self.h)
+    Color.reset()
 end
 
 function Box:set_size(w, h)

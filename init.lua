@@ -13,10 +13,12 @@ return function ()
     
     Audio.new("jump")
     
-    Camera.x_damp = 0.1
-    Camera.y_damp = 0.1
+    Camera.x_damp = 0.2
+    Camera.y_damp = 0.2
     Camera.shake_damp = 0.3
     
+    Color.fg = rgb(237, 231, 249)
+
     FILTERS = {
         wall = {"wall"}
     }

@@ -20,6 +20,7 @@ end
 
 function Game:draw()
     love.graphics.draw(Image.bg)
+    self:draw_bg()
     
     Shadow:start()
     Camera:start()
@@ -42,10 +43,29 @@ function Game:add(o)
     return o
 end
 
+local parallax = 0.7
+function Game:draw_bg()
+    local grid_unit = 30
+    local offset_x = (Camera.x+Camera.shake_x*parallax)%grid_unit
+    local offset_y = (Camera.y+Camera.shake_y*parallax)%grid_unit
+    love.graphics.setColor(1, 1, 1, 0.05)
+    love.graphics.setLineWidth(1)
+    for x = 0, Res.w/grid_unit+1 do
+        local px = x*grid_unit-offset_x
+        love.graphics.line(px, 0, px, Res.h)
+    end
+    for y = 0, Res.h/grid_unit do
+        local py = y*grid_unit-offset_y
+        love.graphics.line(0, py, Res.w, py)
+    end
+    Color.reset()
+end
+
+local box_w, box_h = 300, 200
 function Game:reset()
     self.objects = {}
-    self:add(Player.new())
-    self.box = self:add(Box.new(300, 200))
+    self.box = self:add(Box.new(box_w, box_h))
+    self:add(Player.new(box_w/2, box_h/2))
     -- Level:load_level(tostring(self.current_level), self)
 end
 

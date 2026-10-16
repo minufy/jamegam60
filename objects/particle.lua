@@ -16,7 +16,7 @@ function Particle.new(x, y, mx, my, size, color)
     self.my = my*0.1
     
     self.size = size
-    self.color = color or {1, 1, 1}
+    self.color = color or Color.fg
     return self
 end
 

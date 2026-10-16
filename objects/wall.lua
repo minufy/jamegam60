@@ -10,12 +10,12 @@ function Wall.new(x, y, w, h)
     return self
 end
 
-function Wall:draw()
-    if CONSOLE then
-        love.graphics.setColor(0, 1, 1, 0.1)
-        love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
-        Color.reset()
-    end
-end
+-- function Wall:draw()
+--     if CONSOLE then
+--         love.graphics.setColor(0, 1, 1, 0.1)
+--         love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+--         Color.reset()
+--     end
+-- end
 
 return Wall

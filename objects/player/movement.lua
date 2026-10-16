@@ -68,7 +68,9 @@ return function (Player)
     end
 
     function Player:aim_and_attack(dt)
-        self.dir = math.atan2(Input:get_y()-self.y, Input:get_x()-self.x)
+        local mouse_x = Input:get_x()+Camera.x
+        local mouse_y = Input:get_y()+Camera.y
+        self.dir = math.atan2(mouse_y-self.y, mouse_x-self.x)
         if self.bullet_timer <= 0 then
             if Input.mb[1].pressed then
                 self:fire()
