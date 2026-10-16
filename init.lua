@@ -22,7 +22,7 @@ return function ()
     }
 
     TILE_SIZE = 16
-    WALL_WIDTH = 16
+    WALL_WIDTH = 20
     TILE_NAMES = {
         "tile",
     }

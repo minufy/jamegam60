@@ -5,8 +5,8 @@ local move_damp = 0.2
 
 function Box.new(w, h)
     local self = setmetatable({}, Box)
-    self.x = Res.w/2-w/2
-    self.y = Res.h/2-h/2
+    self.x = Res.w/2-w/2-WALL_WIDTH/2
+    self.y = Res.h/2-h/2-WALL_WIDTH/2
     self.w = w
     self.h = h
     self.target_x = self.x
