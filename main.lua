@@ -19,7 +19,7 @@ function love.load()
     Log:init()
     Res:init()
     Shadow:init()
-    CleanEdge:init(2)
+    CleanEdge:init()
     SM:load("game")
 end
 
