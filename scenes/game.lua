@@ -46,8 +46,8 @@ end
 local parallax = 0.7
 function Game:draw_bg()
     local grid_unit = 30
-    local offset_x = (Camera.x+Camera.shake_x*parallax)%grid_unit
-    local offset_y = (Camera.y+Camera.shake_y*parallax)%grid_unit
+    local offset_x = (Camera.x*parallax+Camera.shake_x)%grid_unit
+    local offset_y = (Camera.y*parallax+Camera.shake_y)%grid_unit
     love.graphics.setColor(1, 1, 1, 0.05)
     love.graphics.setLineWidth(1)
     for x = 0, Res.w/grid_unit+1 do
