@@ -341,5 +341,5 @@ vec4 effect(vec4 color, Image tex, vec2 uv, vec2 screenPos){
 		col = u_col;
 	}
 	
-    return col;
+    return col*color;
 }

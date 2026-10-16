@@ -20,7 +20,8 @@ return function ()
     Color.fg = rgb(237, 231, 249)
 
     FILTERS = {
-        wall = {"wall"}
+        wall = {"wall"},
+        enemy = {"static_enemy"},
     }
 
     TILE_SIZE = 16

@@ -1,8 +1,10 @@
 local speed = 2
 local acc_damp = 0.2
 local dec_damp = 0.1
-local bullet_time = 10
 local recoil_force = 2
+local base_bullet_time = 20
+local base_damage = 3
+local base_bullet_speed = 10
 
 return function (Player)
     function Player:init_movement()
@@ -11,9 +13,10 @@ return function (Player)
         self.dir = 0
         self.speed = speed
 
-        self.bullet_time = bullet_time
         self.bullet_timer = 0
-        self.bullet_speed = 10
+        self.bullet_time = base_bullet_time
+        self.bullet_speed = base_bullet_speed
+        self.damage = base_damage
 
         self.draw_bounce = 0
 
@@ -28,7 +31,7 @@ return function (Player)
     end
 
     function Player:cb_x(other)
-        Physics.solve_x(self, self.mx*self.speed, other)
+        Physics.solve_x(self, self.mx, other)
     end
 
     function Player:cb_y(other)
@@ -87,7 +90,7 @@ return function (Player)
         self.my = self.my-sin*recoil_force
         local x = self.x+self.w/2+cos*self.w
         local y = self.y+self.h/2+sin*self.h
-        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed))
+        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage))
         self.bullet_timer = self.bullet_time
         Camera:shake(2)
         for _ = 1, 3 do

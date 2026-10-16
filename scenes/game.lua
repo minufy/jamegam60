@@ -16,6 +16,7 @@ function Game:update(dt)
 
     Camera:update(dt)
     self:update_objects(dt)
+    self:update_timers(dt)
 end
 
 function Game:draw()
@@ -62,11 +63,29 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 300, 200
+local enemy_spawn_time = 100
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
     self:add(Player.new(box_w/2, box_h/2))
-    -- Level:load_level(tostring(self.current_level), self)
+    self.enemy_spawn_timer = 0
+    self.enemy_spawn_time = enemy_spawn_time
+end
+
+function Game:update_timers(dt)
+    self.enemy_spawn_timer = self.enemy_spawn_timer+dt
+    if self.enemy_spawn_timer > self.enemy_spawn_time then
+        self.enemy_spawn_timer = 0
+        self:spawn_enemy(StaticEnemy)
+    end
+end
+
+function Game:spawn_enemy(enmemy_type)
+    local spawn_x = math.random(WALL_WIDTH, box_w-WALL_WIDTH)
+    local spawn_y = math.random(WALL_WIDTH, box_h-WALL_WIDTH)
+    self:add(Warning.new(spawn_x, spawn_y, function ()
+        self:add(enmemy_type.new(spawn_x, spawn_y))
+    end))
 end
 
 function Game:update_objects(dt)
