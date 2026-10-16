@@ -15,6 +15,7 @@ function Game:update(dt)
     end
 
     Camera:update(dt)
+
     self:update_objects(dt)
     self:update_timers(dt)
 end
@@ -47,8 +48,8 @@ end
 local parallax = 0.7
 function Game:draw_bg()
     local grid_unit = 30
-    local offset_x = (Camera.x*parallax+Camera.shake_x)%grid_unit
-    local offset_y = (Camera.y*parallax+Camera.shake_y)%grid_unit
+    local offset_x = (Camera.x*parallax-Camera.shake_x)%grid_unit
+    local offset_y = (Camera.y*parallax-Camera.shake_y)%grid_unit
     love.graphics.setColor(1, 1, 1, 0.05)
     love.graphics.setLineWidth(1)
     for x = 0, Res.w/grid_unit+1 do
@@ -81,8 +82,8 @@ function Game:update_timers(dt)
 end
 
 function Game:spawn_enemy(enmemy_type)
-    local spawn_x = math.random(WALL_WIDTH, box_w-WALL_WIDTH)
-    local spawn_y = math.random(WALL_WIDTH, box_h-WALL_WIDTH)
+    local spawn_x = math.random(WALL_WIDTH, self.box.w-WALL_WIDTH)
+    local spawn_y = math.random(WALL_WIDTH, self.box.h-WALL_WIDTH)
     self:add(Warning.new(spawn_x, spawn_y, function ()
         self:add(enmemy_type.new(spawn_x, spawn_y))
     end))

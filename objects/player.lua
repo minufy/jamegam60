@@ -1,7 +1,7 @@
 Player = {}
 Player.__index = Player
 
-local cam_margin = 1.2
+local cam_mult = 0.1
 
 require("objects.player.movement")(Player)
 require("objects.player.draw")(Player)
@@ -24,11 +24,11 @@ function Player.new(x, y)
 end
 
 function Player:update_camera()
-    local x = self.x+self.w/2-WALL_WIDTH/2
-    local box_w = Game.box.w
-    local y = self.y+self.h/2-WALL_WIDTH/2
-    local box_h = Game.box.h
-    Camera:set(x/box_w*(box_w-Res.w)+WALL_WIDTH/2, y/box_h*(box_h-Res.h)+WALL_WIDTH/2)
+    local x = self.x+self.w/2-(Game.box.x+Game.box.w/2)
+    local y = self.y+self.h/2-(Game.box.y+Game.box.h/2)
+    local ox = Res.w/2-Game.box.w/2-WALL_WIDTH/2
+    local oy = Res.h/2-Game.box.h/2-WALL_WIDTH/2
+    Camera:set(x*cam_mult-ox, y*cam_mult-oy)
 end
 
 function Player:update(dt)
