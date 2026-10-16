@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run love",
+            "type": "shell",
+            "command": "love .",
+            "options": {
+                "env": {
+                    "CONSOLE": "true"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}
