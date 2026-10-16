@@ -8,9 +8,8 @@ return function ()
     
     Input.right = Input.new({"right", "d"})
     Input.left = Input.new({"left", "a"})
-    -- Input.up = Input.new({"up", "w"})
+    Input.up = Input.new({"up", "w"})
     Input.down = Input.new({"down", "s"})
-    Input.jump = Input.new({"space", "up", "w"})
     
     Audio.new("jump")
     
@@ -18,6 +17,10 @@ return function ()
     Camera.y_damp = 0.1
     Camera.shake_damp = 0.3
     
+    FILTERS = {
+        wall = {"wall"}
+    }
+
     TILE_SIZE = 16
     TILE_NAMES = {
         "tile",

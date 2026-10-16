@@ -8,7 +8,7 @@ end
 
 function Game:update(dt)
     if CONSOLE and Input.refresh.pressed then
-        Level:refresh()
+        -- Level:refresh()
         self:reset()
     end
 
@@ -44,7 +44,8 @@ end
 
 function Game:reset()
     self.objects = {}
-    Level:load_level(tostring(self.current_level), self)
+    self:add(Player.new())
+    -- Level:load_level(tostring(self.current_level), self)
 end
 
 function Game:update_objects(dt)
