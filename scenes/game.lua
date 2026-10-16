@@ -1,5 +1,7 @@
 Game = {}
 
+Image.new("bg")
+
 function Game:init(level)
     self.current_level = level or 1
     Level:init()
@@ -17,9 +19,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    love.graphics.setColor(rgb(60, 93, 141))
-    love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
-    Color.reset()
+    love.graphics.draw(Image.bg)
     
     Shadow:start()
     Camera:start()
