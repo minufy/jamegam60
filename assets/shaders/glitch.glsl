@@ -1,5 +1,5 @@
 extern float time;
-int glitchRate = 8;
+int glitchRate = 3;
 float amount = 0.1;
 
 float hash(float x){

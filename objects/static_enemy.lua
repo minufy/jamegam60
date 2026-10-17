@@ -12,11 +12,7 @@ function StaticEnemy.new(x, y)
     self.h = Image.static_enemy:getHeight()
     self.x = x-self.w/2
     self.y = y-self.h/2
-    for _ = 1, 3 do
-        Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(10, 15)))
-    end
     self.health = 5
-    self.time_offset = math.random(1, 100)*10
     self:base_init()
     return self
 end

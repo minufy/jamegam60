@@ -1,4 +1,5 @@
 return function ()
+    math.randomseed(love.timer.getTime())
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setLineStyle("rough")
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
@@ -20,17 +21,18 @@ return function ()
     SMOOTH_DAMP = 0.15
 
     Color.fg = rgb(237, 231, 249)
-    Color.box = rgb(42, 41, 48)
+    Color.box = rgb(37, 36, 41)
     Color.ram = rgb(128, 87, 240)
     Color.health = rgb(236, 83, 96)
+    Color.wave = rgb(83, 180, 236)
 
     FILTERS = {
         wall = {"wall"},
-        enemy = {"static_enemy"},
+        enemy = {"static_enemy", "moving_enemy"},
     }
 
     TILE_SIZE = 16
-    WALL_WIDTH = 20
+    WALL_WIDTH = 100
     TILE_NAMES = {
         "tile",
     }

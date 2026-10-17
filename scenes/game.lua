@@ -66,20 +66,23 @@ function Game:draw_bg()
     Color.reset()
 end
 
-local box_w, box_h = 340, 240
-local enemy_spawn_time = 100
+local box_w, box_h = 400, 300
+local enemy_spawn_time = 90
 local base_ram = 8
 local max_ram = 16
+local max_waves = 5
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
-    self.player = self:add(Player.new(box_w/2, box_h/2))
+    self.player = self:add(Player.new(box_w/2+WALL_WIDTH/2, box_h/2+WALL_WIDTH/2))
     self.enemy_spawn_timer = 0
     self.enemy_spawn_time = enemy_spawn_time
     self.max_ram = base_ram
     self.current_ram = 0
     self.smooth_current_ram = 0
     self.smooth_health = self.player.health
+    self.wave = 1
+    self.enemy_types = {StaticEnemy, MovingEnemy}
 end
 
 function Game:update_timers(dt)
@@ -87,19 +90,19 @@ function Game:update_timers(dt)
         self.enemy_spawn_timer = self.enemy_spawn_timer+dt
         if self.enemy_spawn_timer > self.enemy_spawn_time then
             self.enemy_spawn_timer = 0
-            self:spawn_enemy(StaticEnemy)
+            self:spawn_enemy(self.enemy_types[math.random(1, self.wave)])
         end
     end
     self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
     self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
 end
 
-local spawn_margin = WALL_WIDTH+20
-function Game:spawn_enemy(enmemy_type)
-    local spawn_x = math.random(spawn_margin, self.box.w-spawn_margin)
-    local spawn_y = math.random(spawn_margin, self.box.h-spawn_margin)
+local spawn_margin = 20
+function Game:spawn_enemy(enemy_type)
+    local spawn_x = math.random(WALL_WIDTH+spawn_margin, self.box.w-spawn_margin)
+    local spawn_y = math.random(WALL_WIDTH+spawn_margin, self.box.h-spawn_margin)
     self:add(Warning.new(spawn_x, spawn_y, function ()
-        self:add(enmemy_type.new(spawn_x, spawn_y))
+        self:add(enemy_type.new(spawn_x, spawn_y))
     end))
 end
 
@@ -127,14 +130,14 @@ end
 local ui_margin = 10
 local bar_h = ui_margin*20
 function Game:draw_bar(y, color, max, current_max, current, name)
-    love.graphics.setColor(Color.alpha(color, 0.7))
+    love.graphics.setColor(Color.alpha(color, 0.8))
     love.graphics.setFont(Font)
     love.graphics.print(name, ui_margin, y)
     local w = current/max*bar_h
     love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), w, ui_margin)
     Color.reset()
     
-    love.graphics.setColor(Color.alpha(Color.fg, 0.7))
+    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.print(tostring(math.round(current/current_max*100)).."%", ui_margin*1.4+Font:getWidth(name), y)
     love.graphics.setLineWidth(2)
     local max_w = current_max/max*bar_h
@@ -142,9 +145,23 @@ function Game:draw_bar(y, color, max, current_max, current, name)
     Color.reset()
 end
 
+local wave_radius = 4
 function Game:draw_hud()
     self:draw_bar(ui_margin, Color.ram, max_ram, self.max_ram, self.smooth_current_ram, "RAM")
     self:draw_bar(ui_margin*4, Color.health , MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
+    local s = "WAVE"
+    love.graphics.setColor(Color.alpha(Color.wave, 0.8))
+    love.graphics.print(s, Res.w-Font:getWidth(s)-ui_margin, ui_margin)
+    Color.reset()
+    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
+    for i = 1, max_waves do
+        local r = wave_radius
+        if i > self.wave then
+            r = r*0.5
+        end
+        love.graphics.circle("fill", Res.w-ui_margin*(max_waves-(i-1))-wave_radius, ui_margin*3, r)
+    end
+    Color.reset()
 end
 
 function Game:add_ram(v)

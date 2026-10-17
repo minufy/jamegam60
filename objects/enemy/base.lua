@@ -1,5 +1,5 @@
 local move_damp = 0.1
-local knockback_force = 3
+local knockback_force = 4
 
 return function (Enemy)
     function Enemy:base_init()
@@ -15,6 +15,11 @@ return function (Enemy)
             end,
         }
 
+        for _ = 1, 3 do
+            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(10, 15)))
+        end
+        self.time_offset = math.random(1, 100)*10
+        
         Game:add_ram(1)
     end
 

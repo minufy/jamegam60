@@ -36,9 +36,9 @@ return function (Player)
         end
         self.hit_timer = hit_time
         self.health = self.health-damage
-        Camera:shake(2)
+        Camera:shake(3)
         for _ = 1, 3 do
-            Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(2, 4)))
+            Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(4, 6)))
         end
         if self.health <= 0 then
             self:die()
