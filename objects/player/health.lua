@@ -33,10 +33,7 @@ return function (Player)
         -- Audio.play("die")
     end
 
-    function Player:hurt(damage)
-        if self.hit_timer > 0 then
-            return
-        end
+    function Player:hurt(damage, _, _)
         self.hit_timer = hit_time
         self.health = self.health-damage
         Camera:shake(3)

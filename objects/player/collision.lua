@@ -6,7 +6,11 @@ return function (Player)
     function Player:init_collision()
         self.collision_cbs = {
             enemy = function (other)
-                self:hurt(1)
+                if self.hit_timer > 0 then
+                    return
+                end
+                self:hurt(1, other)
+                other:hurt(3, self.mx*0.5, self.my*0.5, 2)
             end
         }
     end
