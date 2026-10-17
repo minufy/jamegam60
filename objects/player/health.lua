@@ -1,6 +1,6 @@
 local hit_time = 80
 local regen_time = 500
-MAX_HEALTH = 6
+MAX_HEALTH = 4
 
 return function (Player)
     function Player:init_health()

@@ -1,6 +1,6 @@
-local speed = 1.7
 local acc_damp = 0.2
 local dec_damp = 0.1
+local base_speed = 1.5
 local base_bullet_time = 27
 local base_damage = 3
 local base_bullet_speed = 5.5
@@ -10,7 +10,7 @@ return function (Player)
         self.mx = 0
         self.my = 0
         self.dir = 0
-        self.speed = speed
+        self.speed = base_speed
 
         self.bullet_timer = 0
         self.bullet_time = base_bullet_time

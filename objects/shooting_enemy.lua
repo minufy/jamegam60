@@ -7,7 +7,7 @@ Image.shooting_enemy:setWrap("repeat", "repeat")
 require("objects.enemy.base")(ShootingEnemy)
 
 local shoot_time = 70
-local damage = 2
+local damage = 1
 local bullet_speed = 2
 
 function ShootingEnemy.new(x, y)
@@ -16,7 +16,7 @@ function ShootingEnemy.new(x, y)
     self.h = Image.shooting_enemy:getHeight()
     self.x = x-self.w/2
     self.y = y-self.h/2
-    self.health = 11
+    self.health = 9
     self:base_init()
     self.shoot_timer = Timer.new(shoot_time)
     return self

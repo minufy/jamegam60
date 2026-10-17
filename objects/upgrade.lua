@@ -33,7 +33,7 @@ local upgrades = {
             {text = "more HEALTH", color = Color.blue},
         },
         cb = function (player)
-            player.max_health = player.max_health+4
+            player.max_health = player.max_health+3
             player.health = player.max_health
         end
     },
@@ -55,6 +55,17 @@ local upgrades = {
         },
         cb = function (player)
             player.damage = player.damage+1
+        end
+    },
+    {
+        title = "fast",
+        desc = {
+            {text = "more SPEED", color = Color.blue},
+            {text = "slightly more HELATH", color = Color.blue},
+        },
+        cb = function (player)
+            player.speed = player.speed+1
+            player.max_health = player.max_health+2
         end
     },
 }
