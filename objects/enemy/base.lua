@@ -31,6 +31,10 @@ return function (Enemy)
 
         self.mx = self.mx-self.mx*move_damp*dt
         self.my = self.my-self.my*move_damp*dt
+
+        if Game.choosing_upgrade then
+            self:die()
+        end
     end
 
     function Enemy:hurt(damage, x, y)
@@ -52,5 +56,6 @@ return function (Enemy)
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
         end
         Game:add_ram(-1)
+        Game:add_kill()
     end
 end

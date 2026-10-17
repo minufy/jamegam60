@@ -28,6 +28,7 @@ function Game:draw()
     Camera:start()
 
     self:draw_objects()
+    self:draw_tutorial()
 
     Camera:stop()
 
@@ -74,19 +75,43 @@ local max_waves = 5
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
-    self.player = self:add(Player.new(box_w/2+WALL_WIDTH/2, box_h/2+WALL_WIDTH/2))
-    self.enemy_spawn_timer = 0
+    self.player = self:add(Player.new(self.box.w/2+WALL_WIDTH/2, self.box.h/2+WALL_WIDTH/2))
     self.enemy_spawn_time = enemy_spawn_time
+    self.enemy_spawn_timer = self.enemy_spawn_time
     self.max_ram = base_ram
     self.current_ram = 0
     self.smooth_current_ram = 0
     self.smooth_health = self.player.health
     self.wave = 1
+    self.kills = 0
+    self.choosing_upgrade = false
+    self.tutorial = true
     self.enemy_types = {StaticEnemy, MovingEnemy}
 end
 
+local kills_per_wave = 5
+function Game:add_kill()
+    self.kills = self.kills+1
+    if self.kills >= kills_per_wave then
+        self:next_wave()
+        self.kills = 0
+    end
+end
+
+function Game:next_wave()
+    self.wave = self.wave+1
+    self.choosing_upgrade = true
+    self.player.x = self.box.w/2+WALL_WIDTH/2
+    self.player.y = self.box.h/2+WALL_WIDTH/2
+    local player = self.player
+    for _ = 1, 4 do
+        Game:add(Particle.new(player.x+player.w/2, player.y+player.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
+    end
+    Log(self.wave)
+end
+
 function Game:update_timers(dt)
-    if not self.player_dead then
+    if not self.player_dead and not self.choosing_upgrade and not self.tutorial then
         self.enemy_spawn_timer = self.enemy_spawn_timer+dt
         if self.enemy_spawn_timer > self.enemy_spawn_time then
             self.enemy_spawn_timer = 0
@@ -145,6 +170,20 @@ function Game:draw_bar(y, color, max, current_max, current, name)
     local w = math.max(0.5, math.round(current/max*bar_h))
     love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), w, ui_margin, 2, 2)
     Color.reset()
+end
+
+local tutorial_text = "wasd to move\nclick to shoot"
+function Game:draw_tutorial()
+    if self.tutorial then
+        love.graphics.setFont(Font)
+        love.graphics.setColor(Color.fg)
+        love.graphics.print(tutorial_text, self.player.x+ui_margin*2, self.player.y)
+        Color.reset()
+    end
+end
+
+function Game:end_tutorial()
+    self.tutorial = false
 end
 
 local wave_radius = 4

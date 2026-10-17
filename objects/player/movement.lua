@@ -84,6 +84,8 @@ return function (Player)
     end
     
     function Player:fire()
+        Game:end_tutorial()
+
         local cos = math.cos(self.dir)
         local sin = math.sin(self.dir)
         self.mx = self.mx-cos*recoil_force

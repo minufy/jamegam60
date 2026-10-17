@@ -22,6 +22,9 @@ function Warning:update(dt)
         self.cb()
         self.remove = true
     end
+    if Game.choosing_upgrade then
+        self.remove = true
+    end
 end
 
 function Warning:draw()
