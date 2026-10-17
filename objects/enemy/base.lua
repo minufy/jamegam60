@@ -1,5 +1,4 @@
 local move_damp = 0.1
-local knockback_force = 3
 
 return function (Enemy)
     function Enemy:base_init()
@@ -38,8 +37,8 @@ return function (Enemy)
     end
 
     function Enemy:hurt(damage, x, y)
-        self.mx = self.mx+x*knockback_force
-        self.my = self.my+y*knockback_force
+        self.mx = self.mx+x*damage
+        self.my = self.my+y*damage
         self.health = self.health-damage
         Camera:shake(1.5)
         for _ = 1, 3 do
