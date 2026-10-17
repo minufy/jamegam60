@@ -47,10 +47,11 @@ function Box:update(dt)
     self.y = self.y+(self.target_y-self.y)*move_damp*dt
 end
 
+local w = 20
 function Box:draw()
     love.graphics.setColor(Color.box)
-    love.graphics.setLineWidth(WALL_WIDTH)
-    love.graphics.rectangle("line", self.x+WALL_WIDTH/2, self.y+WALL_WIDTH/2, self.w, self.h)
+    love.graphics.setLineWidth(w)
+    love.graphics.rectangle("line", self.x+WALL_WIDTH-w/2, self.y+WALL_WIDTH-w/2, self.w-WALL_WIDTH+w, self.h-WALL_WIDTH+w)
     Color.reset()
 end
 

@@ -2,7 +2,7 @@ local speed = 1.7
 local acc_damp = 0.2
 local dec_damp = 0.1
 local recoil_force = 2
-local base_bullet_time = 30
+local base_bullet_time = 27
 local base_damage = 3
 local base_bullet_speed = 7
 

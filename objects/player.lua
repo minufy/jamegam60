@@ -1,7 +1,7 @@
 Player = {}
 Player.__index = Player
 
-local cam_mult = 0.1
+local cam_mult = 0.2
 
 require("objects.player.movement")(Player)
 require("objects.player.health")(Player)
@@ -26,8 +26,8 @@ function Player.new(x, y)
 end
 
 function Player:update_camera(dt)
-    local x = self.x+self.w/2-(Game.box.x+Game.box.w/2)
-    local y = self.y+self.h/2-(Game.box.y+Game.box.h/2)
+    local x = self.x+self.w/2-(Game.box.x+Game.box.w/2+WALL_WIDTH/2)
+    local y = self.y+self.h/2-(Game.box.y+Game.box.h/2+WALL_WIDTH/2)
     local ox = Res.w/2-Game.box.w/2-WALL_WIDTH/2
     local oy = Res.h/2-Game.box.h/2-WALL_WIDTH/2
     Camera:set(x*cam_mult-ox, y*cam_mult-oy)
