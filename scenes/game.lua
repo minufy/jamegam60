@@ -81,9 +81,10 @@ function Game:update_timers(dt)
     end
 end
 
+local spawn_margin = WALL_WIDTH+20
 function Game:spawn_enemy(enmemy_type)
-    local spawn_x = math.random(WALL_WIDTH, self.box.w-WALL_WIDTH)
-    local spawn_y = math.random(WALL_WIDTH, self.box.h-WALL_WIDTH)
+    local spawn_x = math.random(spawn_margin, self.box.w-spawn_margin)
+    local spawn_y = math.random(spawn_margin, self.box.h-spawn_margin)
     self:add(Warning.new(spawn_x, spawn_y, function ()
         self:add(enmemy_type.new(spawn_x, spawn_y))
     end))

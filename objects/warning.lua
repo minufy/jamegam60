@@ -7,10 +7,10 @@ local time = 120
 
 function Warning.new(x, y, cb)
     local self = setmetatable({}, Warning)
-    self.x = x
-    self.y = y
     self.w = Image.warning:getWidth()
     self.h = Image.warning:getHeight()
+    self.x = x-self.w/2
+    self.y = y-self.h/2
     self.timer = 0
     self.cb = cb
     return self

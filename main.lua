@@ -18,8 +18,9 @@ function love.load()
     require("init")()
     Log:init()
     Res:init()
-    Shadow:init()
+    Shadow:init({x = 3, y = 3}, 0.8)
     CleanEdge:init()
+    Glitch:init()
     SM:load("game")
 end
 
