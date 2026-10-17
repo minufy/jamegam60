@@ -75,7 +75,7 @@ return function (Player)
         local mouse_y = Input:get_y()+Camera.y
         self.dir = math.atan2(mouse_y-self.y, mouse_x-self.x)
         if self.bullet_timer <= 0 then
-            if Input.mb[1].pressed then
+            if Input.mb[1].down then
                 self:fire()
             end
         else

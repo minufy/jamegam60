@@ -30,6 +30,9 @@ function Game:draw()
     self:draw_objects()
 
     Camera:stop()
+
+    self:draw_hud()
+
     Shadow:stop()
 end
 
@@ -65,20 +68,27 @@ end
 
 local box_w, box_h = 340, 240
 local enemy_spawn_time = 100
+local base_ram = 8
+local max_ram = 16
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
     self:add(Player.new(box_w/2, box_h/2))
     self.enemy_spawn_timer = 0
     self.enemy_spawn_time = enemy_spawn_time
+    self.max_ram = base_ram
+    self.current_ram = 0
+    self.smooth_current_ram = 0
 end
 
+local ram_damp = 0.15
 function Game:update_timers(dt)
     self.enemy_spawn_timer = self.enemy_spawn_timer+dt
     if self.enemy_spawn_timer > self.enemy_spawn_time then
         self.enemy_spawn_timer = 0
         self:spawn_enemy(StaticEnemy)
     end
+    self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*ram_damp*dt
 end
 
 local spawn_margin = WALL_WIDTH+20
@@ -109,6 +119,36 @@ function Game:update_objects(dt)
             i = i-1
         end
     end
+end
+
+local ui_margin = 20
+local bar_h = Res.h-ui_margin*2
+function Game:draw_ram_hud()
+    love.graphics.setColor(Color.fg)
+    love.graphics.setFont(Font)
+    local y = ui_margin+bar_h-Font:getHeight()*2
+    love.graphics.print("RAM", ui_margin*2.2, y)
+    love.graphics.print(tostring(math.round(self.smooth_current_ram/max_ram*100)).."%", ui_margin*2.2, y+Font:getHeight())
+    Color.reset()
+
+    love.graphics.setColor(rgb(205, 66, 233))
+    local h = self.smooth_current_ram/max_ram*bar_h
+    love.graphics.rectangle("fill", ui_margin, ui_margin+bar_h-h, ui_margin, h)
+    Color.reset()
+
+    love.graphics.setColor(Color.fg)
+    love.graphics.setLineWidth(2)
+    local max_h = self.max_ram/max_ram*bar_h
+    love.graphics.rectangle("line", ui_margin, ui_margin+bar_h-max_h, ui_margin, max_h)
+    Color.reset()
+end
+
+function Game:draw_hud()
+    self:draw_ram_hud()
+end
+
+function Game:add_ram(v)
+    self.current_ram = self.current_ram+v
 end
 
 function Game:draw_objects()

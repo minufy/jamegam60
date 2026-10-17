@@ -48,7 +48,7 @@ function Box:update(dt)
 end
 
 function Box:draw()
-    love.graphics.setColor(Color.fg)
+    love.graphics.setColor(Color.box)
     love.graphics.setLineWidth(WALL_WIDTH)
     love.graphics.rectangle("line", self.x+WALL_WIDTH/2, self.y+WALL_WIDTH/2, self.w, self.h)
     Color.reset()

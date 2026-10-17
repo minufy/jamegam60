@@ -14,6 +14,8 @@ return function (Enemy)
                 Physics.solve_y(self, self.my, other)
             end,
         }
+
+        Game:add_ram(1)
     end
 
     function Enemy:base_update(dt)
@@ -35,10 +37,15 @@ return function (Enemy)
             Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(2, 4)))
         end
         if self.health <= 0 then
-            self.remove = true
-            for _ = 1, 4 do
-                Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
-            end
+            self:die()
         end
+    end
+
+    function Enemy:die()
+        self.remove = true
+        for _ = 1, 4 do
+            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
+        end
+        Game:add_ram(-1)
     end
 end
