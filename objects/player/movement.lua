@@ -1,7 +1,6 @@
 local speed = 1.7
 local acc_damp = 0.2
 local dec_damp = 0.1
-local recoil_force = 2
 local base_bullet_time = 27
 local base_damage = 3
 local base_bullet_speed = 7
@@ -88,8 +87,8 @@ return function (Player)
 
         local cos = math.cos(self.dir)
         local sin = math.sin(self.dir)
-        self.mx = self.mx-cos*recoil_force
-        self.my = self.my-sin*recoil_force
+        self.mx = self.mx-cos*self.damage*0.5
+        self.my = self.my-sin*self.damage*0.5
         local x = self.x+self.w/2+cos*self.w
         local y = self.y+self.h/2+sin*self.h
         Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage))

@@ -32,7 +32,7 @@ return function (Enemy)
         self.mx = self.mx-self.mx*move_damp*dt
         self.my = self.my-self.my*move_damp*dt
 
-        if Game.choosing_upgrade then
+        if Game.choosing_upgrade and not self.remove then
             self:die()
         end
     end

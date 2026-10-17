@@ -70,7 +70,6 @@ end
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 95
 local base_ram = 8
-local max_ram = 16
 local max_waves = 5
 function Game:reset()
     self.objects = {}
@@ -86,7 +85,8 @@ function Game:reset()
     self.kills = 0
     self.choosing_upgrade = false
     self.tutorial = true
-    self.enemy_types = {StaticEnemy, MovingEnemy}
+    self.enemy_types = {StaticEnemy, MovingEnemy, MovingEnemy}
+    self.upgrade_index = 1
 end
 
 local kills_per_wave = 5
@@ -99,15 +99,23 @@ function Game:add_kill()
 end
 
 function Game:next_wave()
+    local cx = self.box.w/2+WALL_WIDTH/2
+    local cy = self.box.h/2+WALL_WIDTH/2
     self.wave = self.wave+1
     self.choosing_upgrade = true
-    self.player.x = self.box.w/2+WALL_WIDTH/2
-    self.player.y = self.box.h/2+WALL_WIDTH/2
     local player = self.player
+    player.x = cx
+    player.y = cy
     for _ = 1, 4 do
         Game:add(Particle.new(player.x+player.w/2, player.y+player.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
     end
-    Log(self.wave)
+    Game:add(Upgrade.new(cx-140, cy, self.upgrade_index))
+    Game:add(Upgrade.new(cx+140, cy, self.upgrade_index+1))
+    self.upgrade_index = self.upgrade_index+2
+end
+
+function Game:upgrade_ended()
+    self.choosing_upgrade = false
 end
 
 function Game:update_timers(dt)
@@ -153,7 +161,7 @@ function Game:update_objects(dt)
 end
 
 local ui_margin = 10
-local bar_h = ui_margin*20
+local bar_h = ui_margin*10
 function Game:draw_bar(y, color, max, current_max, current, name)
     love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.setFont(Font)
@@ -188,8 +196,8 @@ end
 
 local wave_radius = 4
 function Game:draw_hud()
-    self:draw_bar(ui_margin, Color.ram, max_ram, self.max_ram, self.smooth_current_ram, "RAM")
-    self:draw_bar(ui_margin*4, Color.health , MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
+    self:draw_bar(ui_margin, Color.ram, base_ram, self.max_ram, self.smooth_current_ram, "RAM")
+    self:draw_bar(ui_margin*4, Color.health, MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
     local s = "WAVE"
     love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.print(s, Res.w-Font:getWidth(s)-ui_margin, ui_margin)
@@ -209,11 +217,24 @@ function Game:add_ram(v)
     self.current_ram = self.current_ram+v
 end
 
+local draw_order = {
+    "box",
+    "moving_enemy",
+    "static_enemy",
+    "bullet",
+    "warning",
+    "upgrade",
+    "player",
+    "particle",
+    "spark_particle",
+}
 function Game:draw_objects()
-    for _, group in pairs(self.objects) do
-        for _, object in ipairs(group) do
-            if object.draw then
-                object:draw()
+    for _, group_name in ipairs(draw_order) do
+        if self.objects[group_name] ~= nil then
+            for _, object in ipairs(self.objects[group_name]) do
+                if object.draw then
+                    object:draw()
+                end
             end
         end
     end

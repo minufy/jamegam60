@@ -4,7 +4,7 @@ MovingEnemy.__index = MovingEnemy
 Image.new("moving_enemy")
 Image.moving_enemy:setWrap("repeat", "repeat")
 
-local speed = 1.2
+local speed = 5
 
 require("objects.enemy.base")(MovingEnemy)
 

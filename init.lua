@@ -22,11 +22,15 @@ return function ()
 
     Color.fg = rgb(237, 231, 249)
     Color.bg = rgb(37, 36, 41)
+    Color.upgrade = rgb(55, 54, 61)
     Color.ram = rgb(128, 87, 240)
     Color.health = rgb(236, 83, 96)
     Color.wave = rgb(83, 180, 236)
+    Color.blue = rgb(83, 180, 236)
+    Color.red = rgb(236, 83, 96)
 
     FILTERS = {
+        player = {"player"},
         wall = {"wall"},
         enemy = {"static_enemy", "moving_enemy"},
     }
