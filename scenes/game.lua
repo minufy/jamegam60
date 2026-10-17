@@ -161,7 +161,7 @@ function Game:draw_hud()
         if i > self.wave then
             r = r*0.5
         end
-        love.graphics.circle("fill", Res.w-ui_margin*(max_waves-(i-1))-wave_radius, ui_margin*3, r)
+        love.graphics.circle("fill", Res.w-ui_margin*(max_waves-(i-1))-wave_radius, ui_margin+Font:getHeight()+wave_radius, r)
     end
     Color.reset()
 end
