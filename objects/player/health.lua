@@ -13,7 +13,7 @@ return function (Player)
     
     function Player:update_health(dt)
         self.hit_timer = self.hit_timer-dt
-        if self.regen_timer:run(dt) then
+        if self.health < self.max_health and self.regen_timer:run(dt) then
             if self.health < self.max_health then
                 self.health = self.health+1
             end

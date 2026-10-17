@@ -141,6 +141,7 @@ function Game:pick_enemy(wave)
     end
 end
 
+local death_thresh = 0.05
 function Game:update_timers(dt)
     if not self.player_dead and not self.choosing_upgrade and not self.tutorial then
         self.enemy_spawn_timer = self.enemy_spawn_timer+dt
@@ -151,7 +152,7 @@ function Game:update_timers(dt)
     end
     self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
     self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
-    if self.current_ram >= self.max_ram then
+    if self.max_ram-self.smooth_current_ram < death_thresh then
         self.player:die()
     end
 end
