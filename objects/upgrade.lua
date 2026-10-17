@@ -20,12 +20,9 @@ local upgrades = {
         title = "sniper",
         desc = {
             {text = "faster bullets", color = Color.blue},
-            {text = "slightly reduced HEALTH", color = Color.red},
         },
         cb = function (player)
             player.bullet_speed = player.bullet_speed+12
-            player.max_health = player.max_health-1
-            player.health = player.max_health
         end
     },
     {
