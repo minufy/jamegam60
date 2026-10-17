@@ -69,9 +69,9 @@ end
 
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 85
-local base_ram = 6
+local base_ram = 5
 local max_waves = 5
-local base_kills_per_wave = 6
+local base_kills_per_wave = 7
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
@@ -105,6 +105,7 @@ function Game:next_wave()
     self.wave = self.wave+1
     self.choosing_upgrade = true
     local player = self.player
+    player.health = player.max_health
     player.x = cx
     player.y = cy
     for _ = 1, 4 do

@@ -30,15 +30,22 @@ function Bullet:update(dt)
     self.x = self.x+math.cos(self.dir)*self.speed*dt
     self.y = self.y+math.sin(self.dir)*self.speed*dt
     if Game:col(self, FILTERS.wall) then
-        self.remove = true
-        for _ = 1, 2 do
-            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(6, 12)))
-        end
+        self:die()
     end
     if self.enemy_bullet then
+        if Game.choosing_upgrade then
+            self:die()
+        end
         Game:dist(self, FILTERS.player, self.cbs.hit, dists.player)
     else
         Game:dist(self, FILTERS.enemy, self.cbs.hit, dists.enemy)
+    end
+end
+
+function Bullet:die()
+    self.remove = true
+    for _ = 1, 2 do
+        Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(6, 12)))
     end
 end
 
