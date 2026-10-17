@@ -17,9 +17,12 @@ return function ()
     Camera.y_damp = 0.2
     Camera.shake_damp = 0.3
     
+    SMOOTH_DAMP = 0.15
+
     Color.fg = rgb(237, 231, 249)
     Color.box = rgb(42, 41, 48)
-    Color.ram = rgb(205, 66, 233)
+    Color.ram = rgb(128, 87, 240)
+    Color.health = rgb(236, 83, 96)
 
     FILTERS = {
         wall = {"wall"},

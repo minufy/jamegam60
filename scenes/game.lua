@@ -73,22 +73,25 @@ local max_ram = 16
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
-    self:add(Player.new(box_w/2, box_h/2))
+    self.player = self:add(Player.new(box_w/2, box_h/2))
     self.enemy_spawn_timer = 0
     self.enemy_spawn_time = enemy_spawn_time
     self.max_ram = base_ram
     self.current_ram = 0
     self.smooth_current_ram = 0
+    self.smooth_health = self.player.health
 end
 
-local ram_damp = 0.15
 function Game:update_timers(dt)
-    self.enemy_spawn_timer = self.enemy_spawn_timer+dt
-    if self.enemy_spawn_timer > self.enemy_spawn_time then
-        self.enemy_spawn_timer = 0
-        self:spawn_enemy(StaticEnemy)
+    if not self.player_dead then
+        self.enemy_spawn_timer = self.enemy_spawn_timer+dt
+        if self.enemy_spawn_timer > self.enemy_spawn_time then
+            self.enemy_spawn_timer = 0
+            self:spawn_enemy(StaticEnemy)
+        end
     end
-    self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*ram_damp*dt
+    self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
+    self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
 end
 
 local spawn_margin = WALL_WIDTH+20
@@ -121,30 +124,27 @@ function Game:update_objects(dt)
     end
 end
 
-local ui_margin = 15
-local bar_h = Res.h-ui_margin*2
-function Game:draw_ram_hud()
-    love.graphics.setColor(Color.fg)
+local ui_margin = 10
+local bar_h = ui_margin*20
+function Game:draw_bar(y, color, max, current_max, current, name)
+    love.graphics.setColor(Color.alpha(color, 0.7))
     love.graphics.setFont(Font)
-    local y = ui_margin+bar_h-Font:getHeight()*2
-    love.graphics.print("RAM", ui_margin*2.2, y)
-    love.graphics.print(tostring(math.round(self.smooth_current_ram/max_ram*100)).."%", ui_margin*2.2, y+Font:getHeight())
+    love.graphics.print(name, ui_margin, y)
+    local w = current/max*bar_h
+    love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), w, ui_margin)
     Color.reset()
-
-    love.graphics.setColor(Color.ram)
-    local h = self.smooth_current_ram/max_ram*bar_h
-    love.graphics.rectangle("fill", ui_margin, ui_margin+bar_h-h, ui_margin, h)
-    Color.reset()
-
-    love.graphics.setColor(Color.fg)
+    
+    love.graphics.setColor(Color.alpha(Color.fg, 0.7))
+    love.graphics.print(tostring(math.round(current/current_max*100)).."%", ui_margin*1.4+Font:getWidth(name), y)
     love.graphics.setLineWidth(2)
-    local max_h = self.max_ram/max_ram*bar_h
-    love.graphics.rectangle("line", ui_margin, ui_margin+bar_h-max_h, ui_margin, max_h)
+    local max_w = current_max/max*bar_h
+    love.graphics.rectangle("line", ui_margin, y+Font:getHeight(), max_w, ui_margin)
     Color.reset()
 end
 
 function Game:draw_hud()
-    self:draw_ram_hud()
+    self:draw_bar(ui_margin, Color.ram, max_ram, self.max_ram, self.smooth_current_ram, "RAM")
+    self:draw_bar(ui_margin*4, Color.health , MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
 end
 
 function Game:add_ram(v)

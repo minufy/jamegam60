@@ -4,6 +4,7 @@ Player.__index = Player
 local cam_mult = 0.1
 
 require("objects.player.movement")(Player)
+require("objects.player.health")(Player)
 require("objects.player.draw")(Player)
 require("objects.player.collision")(Player)
 
@@ -17,13 +18,14 @@ function Player.new(x, y)
     self:init_collision()
     self:init_draw()
     self:init_movement()
+    self:init_health()
     
     self:update_camera()
     Camera:snap_back()
     return self
 end
 
-function Player:update_camera()
+function Player:update_camera(dt)
     local x = self.x+self.w/2-(Game.box.x+Game.box.w/2)
     local y = self.y+self.h/2-(Game.box.y+Game.box.h/2)
     local ox = Res.w/2-Game.box.w/2-WALL_WIDTH/2
@@ -35,7 +37,8 @@ function Player:update(dt)
     self:update_collision(dt)
     self:update_draw(dt)
     self:update_movement(dt)
-    self:update_camera()
+    self:update_health(dt)
+    self:update_camera(dt)
 end
 
 function Player:draw()

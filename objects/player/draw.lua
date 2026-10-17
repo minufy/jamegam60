@@ -12,10 +12,14 @@ return function (Player)
     end
 
     function Player:draw_draw()
+        if self.hit_timer > 0 then
+            love.graphics.setColor(1, 1, 1, 0.65)
+        end
         CleanEdge:start(self.w, self.h)
         local sx = (1-self.draw_bounce)
         local sy = (1+self.draw_bounce)
         love.graphics.draw(Image.player, math.round(self.x+self.w/2), math.round(self.y+self.h/2), self.dir, sx, sy, self.w/2, self.h/2)
         CleanEdge:stop()
+        Color.reset()
     end
 end

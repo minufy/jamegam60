@@ -1,0 +1,47 @@
+local hit_time = 80
+local regen_time = 500
+MAX_HEALTH = 10
+
+return function (Player)
+    function Player:init_health()
+        self.max_health = MAX_HEALTH/2
+        self.health = self.max_health
+        self.smooth_health = self.health
+        self.hit_timer = 0
+        self.regen_timer = Timer.new(regen_time)
+    end
+    
+    function Player:update_health(dt)
+        self.hit_timer = self.hit_timer-dt
+        if self.regen_timer:run(dt) then
+            if self.health < self.max_health then
+                self.health = self.health+1
+            end
+        end
+    end
+    
+    function Player:die()
+        for _ = 1, 4 do
+            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
+        end
+        self.remove = true
+        Game.player_dead = true
+        Camera:shake(3)
+        -- Audio.play("die")
+    end
+
+    function Player:hurt(damage)
+        if self.hit_timer > 0 then
+            return
+        end
+        self.hit_timer = hit_time
+        self.health = self.health-damage
+        Camera:shake(2)
+        for _ = 1, 3 do
+            Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(2, 4)))
+        end
+        if self.health <= 0 then
+            self:die()
+        end
+    end
+end
