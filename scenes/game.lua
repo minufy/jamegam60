@@ -130,18 +130,20 @@ end
 local ui_margin = 10
 local bar_h = ui_margin*20
 function Game:draw_bar(y, color, max, current_max, current, name)
-    love.graphics.setColor(Color.alpha(color, 0.8))
+    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.setFont(Font)
     love.graphics.print(name, ui_margin, y)
-    local w = current/max*bar_h
-    love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), w, ui_margin)
-    Color.reset()
-    
-    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.print(tostring(math.round(current/current_max*100)).."%", ui_margin*1.4+Font:getWidth(name), y)
-    love.graphics.setLineWidth(2)
+    Color.reset()
+
+    love.graphics.setColor(Color.alpha(Color.bg, 0.6))
     local max_w = current_max/max*bar_h
-    love.graphics.rectangle("line", ui_margin, y+Font:getHeight(), max_w, ui_margin)
+    love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), max_w, ui_margin, 2, 2)
+    Color.reset()
+
+    love.graphics.setColor(Color.alpha(color, 0.8))
+    local w = math.max(0.5, math.round(current/max*bar_h))
+    love.graphics.rectangle("fill", ui_margin, y+Font:getHeight(), w, ui_margin, 2, 2)
     Color.reset()
 end
 
@@ -150,10 +152,10 @@ function Game:draw_hud()
     self:draw_bar(ui_margin, Color.ram, max_ram, self.max_ram, self.smooth_current_ram, "RAM")
     self:draw_bar(ui_margin*4, Color.health , MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
     local s = "WAVE"
-    love.graphics.setColor(Color.alpha(Color.wave, 0.8))
+    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.print(s, Res.w-Font:getWidth(s)-ui_margin, ui_margin)
     Color.reset()
-    love.graphics.setColor(Color.alpha(Color.fg, 0.8))
+    love.graphics.setColor(Color.alpha(Color.wave, 0.8))
     for i = 1, max_waves do
         local r = wave_radius
         if i > self.wave then

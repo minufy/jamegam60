@@ -2,7 +2,7 @@ return function ()
     math.randomseed(love.timer.getTime())
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setLineStyle("rough")
-    Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
+    Font = love.graphics.newFont("assets/fonts/Galmuri7.ttf", 8)
 
     Input.refresh = Input.new({"f5"})
     Input.fullscreen = Input.new({"f11"})
@@ -21,7 +21,7 @@ return function ()
     SMOOTH_DAMP = 0.15
 
     Color.fg = rgb(237, 231, 249)
-    Color.box = rgb(37, 36, 41)
+    Color.bg = rgb(37, 36, 41)
     Color.ram = rgb(128, 87, 240)
     Color.health = rgb(236, 83, 96)
     Color.wave = rgb(83, 180, 236)

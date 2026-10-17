@@ -49,9 +49,9 @@ end
 
 local w = 20
 function Box:draw()
-    love.graphics.setColor(Color.box)
+    love.graphics.setColor(Color.bg)
     love.graphics.setLineWidth(w)
-    love.graphics.rectangle("line", self.x+WALL_WIDTH-w/2, self.y+WALL_WIDTH-w/2, self.w-WALL_WIDTH+w, self.h-WALL_WIDTH+w)
+    love.graphics.rectangle("line", self.x+WALL_WIDTH-w/2, self.y+WALL_WIDTH-w/2, self.w-WALL_WIDTH+w, self.h-WALL_WIDTH+w, 1, 1)
     Color.reset()
 end
 
