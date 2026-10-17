@@ -44,6 +44,7 @@ return function (Player)
             Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(4, 6), Color.red))
         end
         if self.health <= 0 then
+            self.health = 0
             self:die()
         end
     end

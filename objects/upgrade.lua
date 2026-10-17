@@ -24,7 +24,7 @@ local upgrades = {
         },
         cb = function (player)
             player.bullet_speed = player.bullet_speed+15
-            player.damage = player.damage+1
+            player.damage = player.damage+0.5
         end
     },
     {
@@ -41,7 +41,7 @@ local upgrades = {
         title = "machinegun",
         desc = {
             {text = "less shoot delay", color = Color.blue},
-            {text = "less DAMAGE", color = Color.red},
+            {text = "way less DAMAGE", color = Color.red},
         },
         cb = function (player)
             player.bullet_time = player.bullet_time-17
@@ -54,7 +54,7 @@ local upgrades = {
             {text = "more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.damage = player.damage+2
+            player.damage = player.damage+1
         end
     },
 }

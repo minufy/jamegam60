@@ -87,6 +87,7 @@ function Game:reset()
     self.choosing_upgrade = false
     self.tutorial = true
     self.upgrade_index = 1
+    self.player_dead = false
     self.kills_per_wave = base_kills_per_wave
 end
 
