@@ -19,7 +19,7 @@ function MovingEnemy.new(x, y)
     return self
 end
 
-local move_damp = 0.1
+local move_damp = 0.05
 function MovingEnemy:update(dt)
     if Game.player then
         local dir = math.atan2(Game.player.y-self.y, Game.player.x-self.x)

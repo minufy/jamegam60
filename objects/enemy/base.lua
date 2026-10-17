@@ -1,5 +1,5 @@
 local move_damp = 0.1
-local knockback_force = 4
+local knockback_force = 3
 
 return function (Enemy)
     function Enemy:base_init()
