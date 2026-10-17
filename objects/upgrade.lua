@@ -66,6 +66,7 @@ local upgrades = {
         cb = function (player)
             player.speed = player.speed+0.8
             player.max_health = player.max_health+2
+            player.health = player.max_health
         end
     },
 }

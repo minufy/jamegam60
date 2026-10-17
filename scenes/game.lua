@@ -69,7 +69,7 @@ end
 
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 85
-local base_ram = 5
+local base_ram = 4
 local max_waves = 5
 local base_kills_per_wave = 7
 function Game:reset()
