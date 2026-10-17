@@ -8,10 +8,10 @@ local upgrades = {
         title = "RAM boost",
         desc = {
             {text = "more RAM", color = Color.blue},
-            {text = "slightly less HEALTH", color = Color.red},
+            {text = "slightly lower HEALTH", color = Color.red},
         },
         cb = function (player)
-            Game.max_ram = Game.max_ram+3
+            Game.max_ram = Game.max_ram+4
             player.max_health = player.max_health-1
             player.health = player.max_health
         end
@@ -23,7 +23,7 @@ local upgrades = {
             {text = "slightly more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.bullet_speed = player.bullet_speed+15
+            player.bullet_speed = player.bullet_speed+10
             player.damage = player.damage+0.5
         end
     },
@@ -40,11 +40,11 @@ local upgrades = {
     {
         title = "machinegun",
         desc = {
-            {text = "less shoot delay", color = Color.blue},
-            {text = "way less DAMAGE", color = Color.red},
+            {text = "lower shoot delay", color = Color.blue},
+            {text = "way lower DAMAGE", color = Color.red},
         },
         cb = function (player)
-            player.bullet_time = player.bullet_time-17
+            player.bullet_time = player.bullet_time-12
             player.damage = player.damage-2
         end
     },
@@ -61,12 +61,11 @@ local upgrades = {
         title = "fast",
         desc = {
             {text = "more SPEED", color = Color.blue},
-            {text = "slightly more HEALTH", color = Color.blue},
+            {text = "slightly lower shoot delay", color = Color.blue},
         },
         cb = function (player)
             player.speed = player.speed+0.8
-            player.max_health = player.max_health+2
-            player.health = player.max_health
+            player.bullet_time = player.bullet_time-6
         end
     },
 }

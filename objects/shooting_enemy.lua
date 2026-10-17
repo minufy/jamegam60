@@ -16,7 +16,7 @@ function ShootingEnemy.new(x, y)
     self.h = Image.shooting_enemy:getHeight()
     self.x = x-self.w/2
     self.y = y-self.h/2
-    self.health = 9
+    self.health = 9.5
     self:base_init()
     self.shoot_timer = Timer.new(shoot_time)
     return self

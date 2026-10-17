@@ -68,8 +68,8 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 400, 300
-local enemy_spawn_time = 85
-local base_ram = 4
+local enemy_spawn_time = 80
+local base_ram = 5
 local max_waves = 5
 local base_kills_per_wave = 7
 function Game:reset()
@@ -102,7 +102,6 @@ end
 function Game:next_wave()
     local cx = self.box.w/2+WALL_WIDTH/2
     local cy = self.box.h/2+WALL_WIDTH/2
-    self.wave = self.wave+1
     self.choosing_upgrade = true
     local player = self.player
     player.health = player.max_health
@@ -111,14 +110,15 @@ function Game:next_wave()
     for _ = 1, 4 do
         Game:add(Particle.new(player.x+player.w/2, player.y+player.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
     end
-    Game:add(Upgrade.new(cx-140, cy, self.upgrade_index))
-    Game:add(Upgrade.new(cx+140, cy, self.upgrade_index+1))
+    Game:add(Upgrade.new(cx-150, cy, self.upgrade_index))
+    Game:add(Upgrade.new(cx+150, cy, self.upgrade_index+1))
     self.upgrade_index = self.upgrade_index+2
-    self.kills_per_wave = self.kills_per_wave+3
+    self.kills_per_wave = self.kills_per_wave+4
 end
 
 function Game:upgrade_ended()
     self.choosing_upgrade = false
+    self.wave = self.wave+1
 end
 
 function Game:pick_enemy(wave)

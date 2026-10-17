@@ -89,8 +89,8 @@ return function (Player)
         local sin = math.sin(self.dir)
         self.mx = self.mx-cos*self.damage*0.5
         self.my = self.my-sin*self.damage*0.5
-        local x = self.x+self.w/2+cos*self.w
-        local y = self.y+self.h/2+sin*self.h
+        local x = self.x+self.w/2+cos*0.9*self.w
+        local y = self.y+self.h/2+sin*0.9*self.h
         Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage))
         self.bullet_timer = self.bullet_time
         Camera:shake(2)

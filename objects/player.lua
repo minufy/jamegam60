@@ -1,7 +1,7 @@
 Player = {}
 Player.__index = Player
 
-local cam_mult = 0.2
+local cam_mult = 0.25
 
 require("objects.player.movement")(Player)
 require("objects.player.health")(Player)
