@@ -3,7 +3,7 @@ local acc_damp = 0.2
 local dec_damp = 0.1
 local base_bullet_time = 27
 local base_damage = 3
-local base_bullet_speed = 7
+local base_bullet_speed = 5.5
 
 return function (Player)
     function Player:init_movement()
