@@ -28,7 +28,7 @@ local upgrades = {
         end
     },
     {
-        title = "healty",
+        title = "healthy",
         desc = {
             {text = "more HEALTH", color = Color.blue},
         },
@@ -48,6 +48,15 @@ local upgrades = {
             player.damage = player.damage-2
         end
     },
+    {
+        title = "damaged",
+        desc = {
+            {text = "more DAMAGE", color = Color.blue},
+        },
+        cb = function (player)
+            player.damage = player.damage+3
+        end
+    },
 }
 upgrades = lume.shuffle(upgrades)
 
@@ -64,7 +73,6 @@ function Upgrade.new(x, y, index)
             self:select(other)
         end,
     }
-    self.selected = false
     for _ = 1, 4 do
         Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
     end
@@ -72,17 +80,15 @@ function Upgrade.new(x, y, index)
 end
 
 function Upgrade:update(dt)
-    if not self.selected then
+    if Game.choosing_upgrade then
         Game:col(self, FILTERS.player, self.cbs.player)
-    end
-    if not Game.choosing_upgrade then
+    else
         self:die()
     end
 end
 
 function Upgrade:select(player)
     self.upgrade.cb(player)
-    self.selected = true
     Game:upgrade_ended()
 end
 
