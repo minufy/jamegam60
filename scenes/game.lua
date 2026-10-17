@@ -121,7 +121,7 @@ function Game:update_objects(dt)
     end
 end
 
-local ui_margin = 20
+local ui_margin = 15
 local bar_h = Res.h-ui_margin*2
 function Game:draw_ram_hud()
     love.graphics.setColor(Color.fg)
@@ -131,7 +131,7 @@ function Game:draw_ram_hud()
     love.graphics.print(tostring(math.round(self.smooth_current_ram/max_ram*100)).."%", ui_margin*2.2, y+Font:getHeight())
     Color.reset()
 
-    love.graphics.setColor(rgb(205, 66, 233))
+    love.graphics.setColor(Color.ram)
     local h = self.smooth_current_ram/max_ram*bar_h
     love.graphics.rectangle("fill", ui_margin, ui_margin+bar_h-h, ui_margin, h)
     Color.reset()

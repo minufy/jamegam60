@@ -19,6 +19,7 @@ return function ()
     
     Color.fg = rgb(237, 231, 249)
     Color.box = rgb(42, 41, 48)
+    Color.ram = rgb(205, 66, 233)
 
     FILTERS = {
         wall = {"wall"},
