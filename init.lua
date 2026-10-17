@@ -32,7 +32,7 @@ return function ()
     FILTERS = {
         player = {"player"},
         wall = {"wall"},
-        enemy = {"static_enemy", "moving_enemy"},
+        enemy = {"static_enemy", "moving_enemy", "shooting_enemy"},
     }
 
     TILE_SIZE = 16

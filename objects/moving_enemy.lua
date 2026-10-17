@@ -21,7 +21,7 @@ end
 
 local move_damp = 0.05
 function MovingEnemy:update(dt)
-    if Game.player then
+    if not Game.player_dead then
         local dir = math.atan2(Game.player.y-self.y, Game.player.x-self.x)
         self.mx = self.mx+(math.cos(dir)*speed-self.mx)*move_damp*dt
         self.my = self.my+(math.sin(dir)*speed-self.my)*move_damp*dt

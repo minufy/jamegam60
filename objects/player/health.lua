@@ -1,6 +1,6 @@
 local hit_time = 80
 local regen_time = 500
-MAX_HEALTH = 8
+MAX_HEALTH = 6
 
 return function (Player)
     function Player:init_health()
@@ -21,8 +21,11 @@ return function (Player)
     end
     
     function Player:die()
+        if Game.player_dead then
+            return
+        end
         for _ = 1, 4 do
-            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
+            Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20), Color.red))
         end
         self.remove = true
         Game.player_dead = true
@@ -38,7 +41,7 @@ return function (Player)
         self.health = self.health-damage
         Camera:shake(3)
         for _ = 1, 3 do
-            Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(4, 6)))
+            Game:add(SparkParticle.new(self.x +self.w/2, self.y+self.h/2, math.rad(math.random(1, 360)), math.random(2, 4), math.random(4, 6), Color.red))
         end
         if self.health <= 0 then
             self:die()

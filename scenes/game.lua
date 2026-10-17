@@ -68,9 +68,10 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 400, 300
-local enemy_spawn_time = 90
+local enemy_spawn_time = 85
 local base_ram = 6
 local max_waves = 5
+local base_kills_per_wave = 6
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
@@ -85,14 +86,13 @@ function Game:reset()
     self.kills = 0
     self.choosing_upgrade = false
     self.tutorial = true
-    self.enemy_types = {StaticEnemy, MovingEnemy, MovingEnemy}
     self.upgrade_index = 1
+    self.kills_per_wave = base_kills_per_wave
 end
 
-local kills_per_wave = 5
 function Game:add_kill()
     self.kills = self.kills+1
-    if self.kills >= kills_per_wave then
+    if self.kills >= self.kills_per_wave then
         self:next_wave()
         self.kills = 0
     end
@@ -112,10 +112,32 @@ function Game:next_wave()
     Game:add(Upgrade.new(cx-140, cy, self.upgrade_index))
     Game:add(Upgrade.new(cx+140, cy, self.upgrade_index+1))
     self.upgrade_index = self.upgrade_index+2
+    self.kills_per_wave = self.kills_per_wave+3
 end
 
 function Game:upgrade_ended()
     self.choosing_upgrade = false
+end
+
+function Game:pick_enemy(wave)
+    local r = math.random(0, 100)
+    if wave == 1 then
+        return StaticEnemy
+    elseif wave == 2 then
+        if r >= 70 then
+            return StaticEnemy
+        else
+            return MovingEnemy
+        end
+    elseif wave == 3 then
+        if r >= 70 then
+            return StaticEnemy
+        elseif r >= 50 then
+            return MovingEnemy
+        else
+            return ShootingEnemy
+        end
+    end
 end
 
 function Game:update_timers(dt)
@@ -123,11 +145,14 @@ function Game:update_timers(dt)
         self.enemy_spawn_timer = self.enemy_spawn_timer+dt
         if self.enemy_spawn_timer > self.enemy_spawn_time then
             self.enemy_spawn_timer = 0
-            self:spawn_enemy(self.enemy_types[math.random(1, self.wave)])
+            self:spawn_enemy(self:pick_enemy(self.wave))
         end
     end
     self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
     self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
+    if self.current_ram >= self.max_ram then
+        self.player:die()
+    end
 end
 
 local spawn_margin = 20
@@ -221,6 +246,7 @@ local draw_order = {
     "box",
     "moving_enemy",
     "static_enemy",
+    "shooting_enemy",
     "bullet",
     "warning",
     "upgrade",

@@ -2,10 +2,11 @@ Bullet = {}
 Bullet.__index = Bullet
 
 local dists = {
-    enemy = TILE_SIZE
+    enemy = TILE_SIZE,
+    player = TILE_SIZE*0.8,
 }
 
-function Bullet.new(x, y, dir, speed, damage)
+function Bullet.new(x, y, dir, speed, damage, enemy_bullet)
     local self = setmetatable({}, Bullet)
     self.x = x
     self.y = y
@@ -15,8 +16,9 @@ function Bullet.new(x, y, dir, speed, damage)
     self.w = self.radius
     self.h = self.radius
     self.damage = damage
+    self.enemy_bullet = enemy_bullet or false
     self.cbs = {
-        enemy = function (other)
+        hit = function (other)
             other:hurt(self.damage, math.cos(self.dir), math.sin(self.dir))
             self.remove = true
         end
@@ -33,11 +35,21 @@ function Bullet:update(dt)
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(6, 12)))
         end
     end
-    Game:dist(self, FILTERS.enemy, self.cbs.enemy, dists.enemy)
+    if self.enemy_bullet then
+        Game:dist(self, FILTERS.player, self.cbs.hit, dists.player)
+    else
+        Game:dist(self, FILTERS.enemy, self.cbs.hit, dists.enemy)
+    end
 end
 
 function Bullet:draw()
+    if self.enemy_bullet then
+        love.graphics.setColor(Color.red)
+    else
+        love.graphics.setColor(Color.fg)
+    end
     love.graphics.circle("fill", self.x, self.y, self.radius)
+    Color.reset()
 end
 
 return Bullet

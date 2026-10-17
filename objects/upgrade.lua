@@ -23,7 +23,7 @@ local upgrades = {
             {text = "slightly more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.bullet_speed = player.bullet_speed+12
+            player.bullet_speed = player.bullet_speed+15
             player.damage = player.damage+1
         end
     },
@@ -44,7 +44,7 @@ local upgrades = {
             {text = "less DAMAGE", color = Color.red},
         },
         cb = function (player)
-            player.bullet_time = player.bullet_time-20
+            player.bullet_time = player.bullet_time-17
             player.damage = player.damage-2
         end
     },
@@ -54,7 +54,7 @@ local upgrades = {
             {text = "more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.damage = player.damage+3
+            player.damage = player.damage+2
         end
     },
 }
