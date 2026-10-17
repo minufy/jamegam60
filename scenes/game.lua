@@ -68,7 +68,7 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 400, 300
-local enemy_spawn_time = 95
+local enemy_spawn_time = 90
 local base_ram = 6
 local max_waves = 5
 function Game:reset()

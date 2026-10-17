@@ -12,7 +12,7 @@ local upgrades = {
         },
         cb = function (player)
             Game.max_ram = Game.max_ram+4
-            player.max_health = player.max_health-3
+            player.max_health = player.max_health-2
             player.health = player.max_health
         end
     },
