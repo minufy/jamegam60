@@ -92,9 +92,9 @@ local box_w, box_h = 400, 300
 local enemy_spawn_time = 80
 local base_ram = 5
 local base_kills_per_wave = 7
-local max_waves = 4
-local base_kills_per_wave = 1
-local max_waves = 2
+local max_waves = 5
+-- local base_kills_per_wave = 1
+-- local max_waves = 2
 local ending_time = 100
 function Game:reset()
     self.objects = {}
@@ -106,6 +106,7 @@ function Game:reset()
     self.current_ram = 0
     self.smooth_current_ram = 0
     self.smooth_health = self.player.health
+    self.smooth_kills = 0
     self.wave = 1
     self.kills = 0
     self.pause_summon = false
@@ -186,7 +187,7 @@ function Game:pick_enemy(wave)
         else
             return ShootingEnemy
         end
-    elseif wave == 4 then
+    elseif wave >= 4 then
         if r >= 60 then
             return FlyEnemy
         elseif r >= 40 then
@@ -208,6 +209,7 @@ function Game:update_timers(dt)
     end
     self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
     self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
+    self.smooth_kills = self.smooth_kills+(self.kills-self.smooth_kills)*SMOOTH_DAMP*dt
     self.ram_full = self.max_ram-self.smooth_current_ram < death_thresh
     if self.ram_full then
         self.player:die()
@@ -302,9 +304,11 @@ function Game:end_tutorial()
 end
 
 local wave_radius = 4
+local gap = Font:getHeight()*2+ui_margin*0.5
 function Game:draw_hud()
     self:draw_bar(ui_margin, Color.ram, base_ram, self.max_ram, self.smooth_current_ram, "RAM")
-    self:draw_bar(ui_margin*4, Color.health, MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
+    self:draw_bar(ui_margin+gap, Color.health, MAX_HEALTH, self.player.max_health, self.smooth_health, "HEALTH")
+    self:draw_bar(ui_margin+gap*2, Color.wave, self.kills_per_wave, self.kills_per_wave, self.smooth_kills, "CURRENT WAVE")
     local s = "WAVE"
     love.graphics.setColor(Color.alpha(Color.fg, 0.8))
     love.graphics.print(s, Res.w-Font:getWidth(s)-ui_margin, ui_margin)

@@ -18,12 +18,12 @@ local upgrades = {
         desc = {
             {text = "faster bullets", color = Color.blue},
             {text = "slightly more DAMAGE", color = Color.blue},
-            {text = "lower SPEED", color = Color.red},
+            {text = "slightly lower SPEED", color = Color.red},
         },
         cb = function (player)
             player.bullet_speed = player.bullet_speed+10
             player.damage = player.damage+0.4
-            player.speed = player.speed-0.5
+            player.speed = player.speed-0.2
         end
     },
     {
@@ -78,8 +78,8 @@ local upgrades = {
         },
         cb = function (player)
             player.rocket = true
-            player.bullet_time = player.bullet_time+12
-            player.bullet_speed = player.bullet_speed-2
+            player.bullet_time = player.bullet_time+18
+            player.bullet_speed = player.bullet_speed-2.5
         end
     },
     {

@@ -13,6 +13,8 @@ return function (Player)
                 self:hurt(1, other)
                 if self.explode then
                     other:hurt(100, self.mx*0.5, self.my*0.5, 2)
+                else
+                    other:hurt(3, self.mx*0.5, self.my*0.5, 2)
                 end
             end
         }

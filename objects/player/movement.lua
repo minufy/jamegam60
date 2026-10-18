@@ -21,6 +21,7 @@ return function (Player)
         self.damage = base_damage
 
         self.rocket = false
+        self.shotgun = false
 
         self.draw_bounce = 0
 
@@ -87,16 +88,32 @@ return function (Player)
         end
     end
     
+    function Player:summon_bullet(dir)
+        local cos = math.cos(dir)
+        local sin = math.sin(dir)
+        local x = self.x+self.w/2+cos*0.9*self.w
+        local y = self.y+self.h/2+sin*0.9*self.h
+        Game:add(Bullet.new(x, y, dir, self.bullet_speed, self.damage, false, self.rocket))
+    end
+
     function Player:fire()
         Game:end_tutorial()
+
+        if self.shotgun then
+            for i = -1, 1 do
+                self:summon_bullet(self.dir+i*0.2)
+            end
+        else
+            self:summon_bullet(self.dir)
+        end
 
         local cos = math.cos(self.dir)
         local sin = math.sin(self.dir)
         self.mx = self.mx-cos*self.damage*0.5
         self.my = self.my-sin*self.damage*0.5
-        local x = self.x+self.w/2+cos*0.9*self.w
-        local y = self.y+self.h/2+sin*0.9*self.h
-        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage, false, self.rocket))
+        local x = self.x+self.w/2+cos*self.w
+        local y = self.y+self.h/2+sin*self.h
+
         self.bullet_timer = self.bullet_time
         Camera:shake(2)
         for _ = 1, 3 do
