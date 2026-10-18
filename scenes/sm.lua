@@ -66,4 +66,10 @@ function SM:set_fade(func)
     self:reset_fade()
 end
 
+function SM:focus(f)
+    if self.current.focus then
+        self.current:focus(f)
+    end
+end
+
 SM:init()

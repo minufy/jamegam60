@@ -4,6 +4,10 @@ Image.new("bg")
 
 function Game:init(skip_tutorial)
     self.skip_tutorial = skip_tutorial
+    if skip_tutorial then
+        Audio.resume("music")
+        self.music_playing = true
+    end
     Level:init()
     self:reset()
 end
@@ -114,7 +118,6 @@ function Game:reset()
     self.ending = false
     self.upgrades = {}
     self.ram_full = false
-    Audio.play("music")
 end
 
 function Game:draw_ending()
@@ -141,6 +144,7 @@ function Game:next_wave()
         self.ending = true
         Camera:shake(5)
         Audio.stop("music")
+        self.music_playing = false
         return
     end
     Audio.play("upgrade")
@@ -278,7 +282,22 @@ function Game:draw_tutorial()
     end
 end
 
+function Game:focus(f)
+    if not self.music_playing then
+        return
+    end
+    if not f then
+        Audio.pause("music")
+    else
+        Audio.resume("music")
+    end
+end
+
 function Game:end_tutorial()
+    if self.tutorial then
+        Audio.resume("music")
+        self.music_playing = true
+    end
     self.tutorial = false
 end
 
@@ -307,7 +326,8 @@ end
 
 function Game:player_die()
     self.player_dead = true
-    Audio.stop("music")
+    self.music_playing = false
+    Audio.pause("music")
 end
 
 function Game:draw_dead()

@@ -22,7 +22,7 @@ return function ()
     Audio.new("upgrade", 0.3)
     Audio.new("summon", 0.2)
     Audio.new("select", 0.2)
-    Audio.new("music", 0.1, {
+    Audio.new("music", 0.15, {
         type = "stream",
         channel = "music",
         loop = "true",

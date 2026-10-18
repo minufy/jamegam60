@@ -44,7 +44,7 @@ local upgrades = {
             {text = "way lower DAMAGE", color = Color.red},
         },
         cb = function (player)
-            player.bullet_time = player.bullet_time-18
+            player.bullet_time = player.bullet_time-19
             player.damage = player.damage-2
         end
     },

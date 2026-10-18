@@ -1,5 +1,4 @@
 local hit_time = 80
-local regen_time = 500
 MAX_HEALTH = 3
 
 return function (Player)
@@ -8,16 +7,10 @@ return function (Player)
         self.health = self.max_health
         self.smooth_health = self.health
         self.hit_timer = 0
-        self.regen_timer = Timer.new(regen_time)
     end
     
     function Player:update_health(dt)
         self.hit_timer = self.hit_timer-dt
-        if self.health < self.max_health and self.regen_timer:run(dt) then
-            if self.health < self.max_health then
-                self.health = self.health+1
-            end
-        end
     end
     
     function Player:die()

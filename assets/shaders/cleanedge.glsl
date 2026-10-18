@@ -42,7 +42,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 /* uniform */ float similarThreshold = 0.0;
 
 /* uniform */ float lineWidth = 2.0;
-extern vec2 textureSize;
+uniform vec2 texSize;
 
 const float scale = 4.0;
 const mat3 yuv_matrix = mat3(vec3(0.299, 0.587, 0.114), vec3(-0.169, -0.331, 0.5), vec3(0.5, -0.419, -0.081));
@@ -286,7 +286,7 @@ vec4 sliceDist(vec2 point, vec2 mainDir, vec2 pointDir, vec4 ub, vec4 u, vec4 uf
 }
 
 vec4 effect(vec4 color, Image tex, vec2 uv, vec2 screenPos){
-	vec2 size = textureSize;
+	vec2 size = texSize;
 	vec2 px = uv*size;
 	vec2 local = fract(px);
 	px = ceil(px) - 0.5;
