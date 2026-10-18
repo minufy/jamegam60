@@ -33,7 +33,7 @@ local upgrades = {
             {text = "explode at collision", color = Color.blue},
         },
         cb = function (player)
-            player.max_health = player.max_health+5
+            player.max_health = player.max_health+4
             player.health = player.max_health
             player.explode = true
         end
@@ -95,7 +95,7 @@ local upgrades = {
         },
         cb = function (player)
             player.shotgun = true
-            player.bullet_life = player.bullet_life*0.25
+            player.bullet_life = player.bullet_life*0.3
             player.bullet_time = player.bullet_time+8
         end
     },
