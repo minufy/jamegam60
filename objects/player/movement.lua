@@ -1,6 +1,6 @@
 local acc_damp = 0.2
 local dec_damp = 0.1
-local base_speed = 1.45
+local base_speed = 1.5
 local base_bullet_time = 27
 local base_damage = 3
 local base_bullet_speed = 5.5
@@ -97,6 +97,8 @@ return function (Player)
         for _ = 1, 3 do
             Game:add(SparkParticle.new(x, y, self.dir+math.random(-10, 10)*0.05, math.random(2, 4), math.random(2, 4)))
         end
+
+        Audio.play("shoot", RandomPitch())
     end
 
     function Player:update_movement(dt)

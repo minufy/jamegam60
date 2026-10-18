@@ -13,7 +13,20 @@ return function ()
     Input.down = Input.new({"down", "s"})
     Input.restart = Input.new({"r"})
     
-    Audio.new("jump")
+    Audio.new("fade", 0.3)
+    Audio.new("die", 0.3)
+    Audio.new("kill", 0.2)
+    Audio.new("hurt", 0.3)
+    Audio.new("shoot", 0.2)
+    Audio.new("bounce", 0.4)
+    Audio.new("upgrade", 0.3)
+    Audio.new("summon", 0.2)
+    Audio.new("select", 0.2)
+    Audio.new("music", 0.1, {
+        type = "stream",
+        channel = "music",
+        loop = "true",
+    })
     
     Camera.x_damp = 0.2
     Camera.y_damp = 0.2

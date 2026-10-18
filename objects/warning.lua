@@ -20,6 +20,7 @@ function Warning:update(dt)
     self.timer = self.timer+dt
     if self.timer > time then
         self.cb()
+        Audio.play("summon", RandomPitch())
         self.remove = true
     end
     if Game.pause_summon or Game.player_dead then

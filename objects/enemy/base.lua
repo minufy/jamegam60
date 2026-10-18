@@ -47,6 +47,8 @@ return function (Enemy)
         if self.health <= 0 then
             self:die()
         end
+        
+        Audio.play("hurt", RandomPitch())
     end
 
     function Enemy:die()
@@ -56,5 +58,6 @@ return function (Enemy)
         end
         Game:add_ram(-1)
         Game:add_kill()
+        Audio.play("kill", RandomPitch())
     end
 end

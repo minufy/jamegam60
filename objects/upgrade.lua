@@ -24,7 +24,7 @@ local upgrades = {
         },
         cb = function (player)
             player.bullet_speed = player.bullet_speed+10
-            player.damage = player.damage+0.5
+            player.damage = player.damage+0.4
         end
     },
     {
@@ -102,6 +102,7 @@ function Upgrade:select(player)
     self.upgrade.cb(player)
     Game:upgrade_ended()
     Game:add_upgrades(self.upgrade.title)
+    Audio.play("select")
 end
 
 function Upgrade:draw()

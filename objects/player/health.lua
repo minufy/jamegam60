@@ -28,9 +28,9 @@ return function (Player)
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20), Color.red))
         end
         self.remove = true
-        Game.player_dead = true
+        Game:player_die()
         Camera:shake(3)
-        -- Audio.play("die")
+        Audio.play("die")
     end
 
     function Player:hurt(damage, _, _)
@@ -44,5 +44,6 @@ return function (Player)
             self.health = 0
             self:die()
         end
+        Audio.play("hurt", RandomPitch())
     end
 end

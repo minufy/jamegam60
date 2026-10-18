@@ -41,6 +41,7 @@ function ShootingEnemy:fire()
     for _ = 1, 3 do
         Game:add(SparkParticle.new(x, y, self.dir+math.random(-10, 10)*0.05, math.random(2, 4), math.random(2, 4)))
     end
+    Audio.play("shoot", RandomPitch())
 end
 
 function ShootingEnemy:draw()

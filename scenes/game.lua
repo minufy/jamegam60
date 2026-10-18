@@ -114,6 +114,7 @@ function Game:reset()
     self.ending = false
     self.upgrades = {}
     self.ram_full = false
+    Audio.play("music")
 end
 
 function Game:draw_ending()
@@ -139,8 +140,10 @@ function Game:next_wave()
     if self.wave == max_waves then
         self.ending = true
         Camera:shake(5)
+        Audio.stop("music")
         return
     end
+    Audio.play("upgrade")
     local cx = self.box.w/2+WALL_WIDTH/2
     local cy = self.box.h/2+WALL_WIDTH/2
     local player = self.player
@@ -300,6 +303,11 @@ function Game:draw_hud()
     if self.player_dead then
         self:draw_dead()
     end
+end
+
+function Game:player_die()
+    self.player_dead = true
+    Audio.stop("music")
 end
 
 function Game:draw_dead()

@@ -52,3 +52,11 @@ end
 function love.resize(w, h)
     Res:resize(w, h)
 end
+
+function love.focus(f)
+    if not f then
+        Audio.pause("music")
+    else
+        Audio.resume("music")
+    end
+end

@@ -24,7 +24,7 @@ function SM:update(dt)
             self.fade_cb = nil
             self.fading_in = false
             self.fading_out = true
-            -- Audio.play("fade")
+            Audio.play("fade")
         end
     end
     if self.fading_out then
@@ -55,7 +55,7 @@ function SM:reset_fade()
     self.fade_out = 0
     self.fading_in = true
     self.fading_out = false
-    -- Audio.play("fade")
+    Audio.play("fade")
 end
 
 function SM:set_fade(func)

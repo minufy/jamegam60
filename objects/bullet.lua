@@ -50,6 +50,7 @@ function Bullet:die()
     for _ = 1, 2 do
         Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(6, 12)))
     end
+    Audio.play("bounce", RandomPitch())
 end
 
 function Bullet:draw()
