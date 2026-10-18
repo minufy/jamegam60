@@ -3,6 +3,7 @@ Game = {}
 Image.new("bg")
 
 function Game:init(skip_tutorial)
+    math.randomseed(love.timer.getTime())
     self.skip_tutorial = skip_tutorial
     if skip_tutorial then
         Audio.resume("music")

@@ -1,5 +1,4 @@
 return function ()
-    math.randomseed(love.timer.getTime())
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setLineStyle("rough")
     Font = love.graphics.newFont("assets/fonts/Galmuri7.ttf", 8)
