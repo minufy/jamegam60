@@ -22,9 +22,9 @@ function StaticEnemy:update(dt)
 end
 
 function StaticEnemy:draw()
-    Glitch:start(self.time_offset)
+    Shaders.glitch:start(self.time_offset)
     love.graphics.draw(Image.static_enemy, self.x, self.y)
-    Glitch:stop()
+    Shaders.glitch:stop()
 end
 
 return StaticEnemy

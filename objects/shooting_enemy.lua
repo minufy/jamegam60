@@ -45,9 +45,9 @@ function ShootingEnemy:fire()
 end
 
 function ShootingEnemy:draw()
-    Glitch:start(self.time_offset)
+    Shaders.glitch:start(self.time_offset)
     love.graphics.draw(Image.shooting_enemy, self.x, self.y)
-    Glitch:stop()
+    Shaders.glitch:stop()
 end
 
 return ShootingEnemy

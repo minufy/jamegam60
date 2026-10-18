@@ -30,9 +30,9 @@ end
 
 function Warning:draw()
     love.graphics.setColor(1, 1, 1, self.timer/time)
-    CleanEdge:start(self.w, self.h)
+    Shaders.cleanedge:start(self.w, self.h)
     love.graphics.draw(Image.warning, self.x+self.w/2, self.y+self.h/2, Ease.out_elastic(self.timer/time*0.5)*math.pi, 1, 1, self.w/2, self.h/2)
-    CleanEdge:stop()
+    Shaders.cleanedge:stop()
     Color.reset()
 end
 

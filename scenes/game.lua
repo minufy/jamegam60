@@ -135,7 +135,7 @@ function Game:draw()
     love.graphics.draw(Image.bg)
     self:draw_bg()
     
-    Shadow:start()
+    Shaders.shadow:start()
     Camera:start()
 
     self:draw_objects()
@@ -155,7 +155,7 @@ function Game:draw()
 
     self:draw_hud()
 
-    Shadow:stop()
+    Shaders.shadow:stop()
 end
 
 ---@generic T

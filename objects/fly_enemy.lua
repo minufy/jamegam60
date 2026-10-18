@@ -28,9 +28,9 @@ function FlyEnemy:update(dt)
 end
 
 function FlyEnemy:draw()
-    Glitch:start(self.time_offset)
+    Shaders.glitch:start(self.time_offset)
     love.graphics.draw(Image.fly_enemy, self.x, self.y)
-    Glitch:stop()
+    Shaders.glitch:stop()
 end
 
 return FlyEnemy
