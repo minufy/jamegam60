@@ -4,7 +4,7 @@ FlyEnemy.__index = FlyEnemy
 Image.new("fly_enemy")
 Image.fly_enemy:setWrap("repeat", "repeat")
 
-local speed = 17
+local speed = 20
 
 require("objects.enemy.base")(FlyEnemy)
 

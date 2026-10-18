@@ -69,7 +69,7 @@ local upgrades = {
         },
         cb = function (player)
             player.speed = player.speed+0.7
-            player.bullet_time = player.bullet_time-9
+            player.bullet_time = player.bullet_time-8
             player.bullet_life = player.bullet_life*0.6
         end
     },
@@ -77,11 +77,13 @@ local upgrades = {
         title = "rocket",
         desc = {
             {text = "bullets follow cursor", color = Color.blue},
+            {text = "slightly lower shoot delay", color = Color.blue},
             {text = "slower bullets", color = Color.red},
         },
         cb = function (player)
             player.rocket = true
-            player.bullet_speed = player.bullet_speed-1
+            player.bullet_time = player.bullet_time-8
+            player.bullet_speed = player.bullet_speed-1.3
         end
     },
     {
