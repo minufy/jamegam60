@@ -94,7 +94,7 @@ local enemy_spawn_time = 80
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5
-local base_kills_per_wave = 1
+-- local base_kills_per_wave = 1
 -- local max_waves = 2
 local ending_time = 100
 function Game:reset()
