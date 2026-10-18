@@ -2,9 +2,10 @@ local acc_damp = 0.2
 local dec_damp = 0.1
 local base_speed = 1.5
 local base_bullet_time = 27
-local min_bullet_time = 6
+local min_bullet_time = 8
 local base_damage = 3
 local base_bullet_speed = 5.5
+local min_bullet_speed = 0.5
 local base_bullet_life = 100
 
 return function (Player)
@@ -126,6 +127,9 @@ return function (Player)
     function Player:update_movement(dt)
         if self.bullet_time < min_bullet_time then
             self.bullet_time = min_bullet_time
+        end
+        if self.bullet_speed < min_bullet_speed then
+            self.bullet_speed = min_bullet_speed
         end
         self:move(dt)
         self:aim_and_attack(dt)

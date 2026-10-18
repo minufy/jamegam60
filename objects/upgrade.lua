@@ -16,7 +16,7 @@ local upgrades = {
     {
         title = "sniper",
         desc = {
-            {text = "faster bullets", color = Color.blue},
+            {text = "way faster bullets", color = Color.blue},
             {text = "slightly more DAMAGE", color = Color.blue},
             {text = "slightly lower SPEED", color = Color.red},
         },
@@ -48,7 +48,7 @@ local upgrades = {
         cb = function (player)
             player.bullet_time = player.bullet_time-17
             player.damage = player.damage-1.5
-            player.bullet_life = player.bullet_life*0.4
+            player.bullet_life = player.bullet_life*0.5
         end
     },
     {
@@ -80,10 +80,10 @@ local upgrades = {
             {text = "slightly lower shoot delay", color = Color.blue},
             {text = "slower bullets", color = Color.red},
         },
-        cb = function (player) 
+        cb = function (player)
             player.rocket = true
-            player.bullet_time = player.bullet_time-3
-            player.bullet_speed = player.bullet_speed-1.3
+            player.bullet_time = player.bullet_time-2
+            player.bullet_speed = player.bullet_speed-2
         end
     },
     {
@@ -95,8 +95,8 @@ local upgrades = {
         },
         cb = function (player)
             player.shotgun = true
-            player.bullet_life = player.bullet_life*0.3
-            player.bullet_time = player.bullet_time+8
+            player.bullet_life = player.bullet_life*0.35
+            player.bullet_time = player.bullet_time+7
         end
     },
 }

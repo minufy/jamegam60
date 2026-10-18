@@ -90,8 +90,8 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 400, 300
-local enemy_spawn_time = 78
-local short_enemy_spawn_time = 58
+local enemy_spawn_time = 75
+local short_enemy_spawn_time = 60
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5

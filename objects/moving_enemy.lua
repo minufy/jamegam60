@@ -14,7 +14,7 @@ function MovingEnemy.new(x, y)
     self.h = Image.moving_enemy:getHeight()
     self.x = x-self.w/2
     self.y = y-self.h/2
-    self.health = 7
+    self.health = 6
     self:base_init()
     return self
 end

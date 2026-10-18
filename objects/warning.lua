@@ -3,7 +3,7 @@ Warning.__index = Warning
 
 Image.new("warning")
 
-local time = 120
+local time = 80
 
 function Warning.new(x, y, cb)
     local self = setmetatable({}, Warning)
