@@ -41,7 +41,7 @@ local upgrades = {
     {
         title = "machinegun",
         desc = {
-            {text = "lower shoot delay", color = Color.blue},
+            {text = "way lower shoot delay", color = Color.blue},
             {text = "lower DAMAGE", color = Color.red},
             {text = "shorter bullets", color = Color.red},
         },
@@ -57,14 +57,14 @@ local upgrades = {
             {text = "more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.damage = player.damage+1.5
+            player.damage = player.damage+2
         end
     },
     {
         title = "fast",
         desc = {
             {text = "more SPEED", color = Color.blue},
-            {text = "slightly lower shoot delay", color = Color.blue},
+            {text = "lower shoot delay", color = Color.blue},
             {text = "slightly shorter bullets", color = Color.red}
         },
         cb = function (player)
@@ -80,9 +80,9 @@ local upgrades = {
             {text = "slightly lower shoot delay", color = Color.blue},
             {text = "slower bullets", color = Color.red},
         },
-        cb = function (player)
+        cb = function (player) 
             player.rocket = true
-            player.bullet_time = player.bullet_time-8
+            player.bullet_time = player.bullet_time-3
             player.bullet_speed = player.bullet_speed-1.3
         end
     },
