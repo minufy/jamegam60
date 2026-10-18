@@ -68,8 +68,8 @@ local upgrades = {
             {text = "slightly shorter bullets", color = Color.red}
         },
         cb = function (player)
-            player.speed = player.speed+0.7
-            player.bullet_time = player.bullet_time-8
+            player.speed = player.speed+0.8
+            player.bullet_time = player.bullet_time-10
             player.bullet_life = player.bullet_life*0.6
         end
     },
