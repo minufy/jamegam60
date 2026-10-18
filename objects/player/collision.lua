@@ -11,11 +11,10 @@ return function (Player)
                 other:hurt(100, self.mx*0.5, self.my*0.5, 2)
             end,
             enemy = function (other)
-                if self.hit_timer > 0 then
-                    return
+                if self.hit_timer <= 0 then 
+                    other:hurt(4.5, self.mx*0.5, self.my*0.5, 2)
                 end
                 self:hurt(1, other)
-                other:hurt(4.5, self.mx*0.5, self.my*0.5, 2)
             end
         }
     end

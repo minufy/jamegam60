@@ -27,6 +27,9 @@ return function (Player)
     end
 
     function Player:hurt(damage, _, _)
+        if self.hit_timer > 0 then
+            return
+        end
         if self.explode then
             self:explosion()
         end

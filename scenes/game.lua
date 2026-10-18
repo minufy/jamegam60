@@ -91,7 +91,7 @@ end
 
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 82
-local short_enemy_spawn_time = 65
+local short_enemy_spawn_time = 64
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5
