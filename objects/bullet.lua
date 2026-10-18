@@ -33,11 +33,14 @@ function Bullet:update(dt)
         self:die()
     end
     if self.enemy_bullet then
-        if Game.choosing_upgrade then
+        if Game.pause_summon then
             self:die()
         end
         Game:dist(self, FILTERS.player, self.cbs.hit, dists.player)
     else
+        if Game.player_dead then
+            self:die()
+        end
         Game:dist(self, FILTERS.enemy, self.cbs.hit, dists.enemy)
     end
 end

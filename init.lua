@@ -11,6 +11,7 @@ return function ()
     Input.left = Input.new({"left", "a"})
     Input.up = Input.new({"up", "w"})
     Input.down = Input.new({"down", "s"})
+    Input.restart = Input.new({"r"})
     
     Audio.new("jump")
     
@@ -32,7 +33,7 @@ return function ()
     FILTERS = {
         player = {"player"},
         wall = {"wall"},
-        enemy = {"static_enemy", "moving_enemy", "shooting_enemy"},
+        enemy = {"static_enemy", "moving_enemy", "shooting_enemy", "fly_enemy"},
     }
 
     TILE_SIZE = 16

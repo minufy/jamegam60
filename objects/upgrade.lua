@@ -11,7 +11,7 @@ local upgrades = {
             {text = "slightly lower HEALTH", color = Color.red},
         },
         cb = function (player)
-            Game.max_ram = Game.max_ram+4
+            Game.max_ram = Game.max_ram+5
             player.max_health = player.max_health-1
             player.health = player.max_health
         end
@@ -45,7 +45,7 @@ local upgrades = {
         },
         cb = function (player)
             player.bullet_time = player.bullet_time-18
-            player.damage = player.damage-1.5
+            player.damage = player.damage-2
         end
     },
     {
@@ -54,7 +54,7 @@ local upgrades = {
             {text = "more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.damage = player.damage+1
+            player.damage = player.damage+0.5
         end
     },
     {
@@ -74,7 +74,7 @@ upgrades = lume.shuffle(upgrades)
 local margin = 6
 function Upgrade.new(x, y, index)
     local self = setmetatable({}, Upgrade)
-    self.w = 120
+    self.w = 125
     self.h = Font:getHeight()*3.5+margin*2
     self.x = x-self.w/2
     self.y = y-self.h/2
@@ -91,7 +91,7 @@ function Upgrade.new(x, y, index)
 end
 
 function Upgrade:update(dt)
-    if Game.choosing_upgrade then
+    if Game.pause_summon then
         Game:col(self, FILTERS.player, self.cbs.player)
     else
         self:die()
@@ -101,6 +101,7 @@ end
 function Upgrade:select(player)
     self.upgrade.cb(player)
     Game:upgrade_ended()
+    Game:add_upgrades(self.upgrade.title)
 end
 
 function Upgrade:draw()

@@ -2,8 +2,8 @@ Game = {}
 
 Image.new("bg")
 
-function Game:init(level)
-    self.current_level = level or 1
+function Game:init(skip_tutorial)
+    self.skip_tutorial = skip_tutorial
     Level:init()
     self:reset()
 end
@@ -18,6 +18,14 @@ function Game:update(dt)
 
     self:update_objects(dt)
     self:update_timers(dt)
+    if self.player_dead then
+        self.dead_anim = self.dead_anim-self.dead_anim*SMOOTH_DAMP*dt
+        if Input.restart.pressed then
+            SM:set_fade(function ()
+                SM:load("game", true)
+            end)
+        end
+    end
 end
 
 function Game:draw()
@@ -31,6 +39,15 @@ function Game:draw()
     self:draw_tutorial()
 
     Camera:stop()
+
+    if self.player_dead then
+        love.graphics.setColor(0, 0, 0, (1-self.dead_anim)*0.5)
+        love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
+        Color.reset()
+    end
+    if self.ending then
+        self:draw_ending()
+    end
 
     self:draw_hud()
 
@@ -70,8 +87,11 @@ end
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 80
 local base_ram = 5
-local max_waves = 5
 local base_kills_per_wave = 7
+local max_waves = 4
+-- local base_kills_per_wave = 1
+-- local max_waves = 2
+local ending_time = 100
 function Game:reset()
     self.objects = {}
     self.box = self:add(Box.new(box_w, box_h))
@@ -84,11 +104,22 @@ function Game:reset()
     self.smooth_health = self.player.health
     self.wave = 1
     self.kills = 0
-    self.choosing_upgrade = false
-    self.tutorial = true
+    self.pause_summon = false
+    self.tutorial = not self.skip_tutorial
     self.upgrade_index = 1
     self.player_dead = false
     self.kills_per_wave = base_kills_per_wave
+    self.dead_anim = 1
+    self.ending_timer = 0
+    self.ending = false
+    self.upgrades = {}
+    self.ram_full = false
+end
+
+function Game:draw_ending()
+    love.graphics.setColor(1, 1, 1, self.ending_timer/ending_time)
+    love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
+    Color.reset()
 end
 
 function Game:add_kill()
@@ -99,10 +130,19 @@ function Game:add_kill()
     end
 end
 
+function Game:add_upgrades(title)
+    table.insert(self.upgrades, title)
+end
+
 function Game:next_wave()
+    self.pause_summon = true
+    if self.wave == max_waves then
+        self.ending = true
+        Camera:shake(5)
+        return
+    end
     local cx = self.box.w/2+WALL_WIDTH/2
     local cy = self.box.h/2+WALL_WIDTH/2
-    self.choosing_upgrade = true
     local player = self.player
     player.health = player.max_health
     player.x = cx
@@ -117,7 +157,7 @@ function Game:next_wave()
 end
 
 function Game:upgrade_ended()
-    self.choosing_upgrade = false
+    self.pause_summon = false
     self.wave = self.wave+1
 end
 
@@ -139,12 +179,20 @@ function Game:pick_enemy(wave)
         else
             return ShootingEnemy
         end
+    elseif wave == 4 then
+        if r >= 60 then
+            return FlyEnemy
+        elseif r >= 40 then
+            return MovingEnemy
+        else
+            return ShootingEnemy
+        end
     end
 end
 
 local death_thresh = 0.05
 function Game:update_timers(dt)
-    if not self.player_dead and not self.choosing_upgrade and not self.tutorial then
+    if not self.player_dead and not self.pause_summon and not self.tutorial and not self.ending then
         self.enemy_spawn_timer = self.enemy_spawn_timer+dt
         if self.enemy_spawn_timer > self.enemy_spawn_time then
             self.enemy_spawn_timer = 0
@@ -153,8 +201,17 @@ function Game:update_timers(dt)
     end
     self.smooth_current_ram = self.smooth_current_ram+(self.current_ram-self.smooth_current_ram)*SMOOTH_DAMP*dt
     self.smooth_health = self.smooth_health+(self.player.health-self.smooth_health)*SMOOTH_DAMP*dt
-    if self.max_ram-self.smooth_current_ram < death_thresh then
+    self.ram_full = self.max_ram-self.smooth_current_ram < death_thresh
+    if self.ram_full then
         self.player:die()
+    end
+    if self.ending then
+        self.ending_timer = self.ending_timer+dt
+        if self.ending_timer > ending_time then
+            SM:set_fade(function ()
+                SM:load("ending")
+            end)
+        end
     end
 end
 
@@ -239,6 +296,36 @@ function Game:draw_hud()
         love.graphics.circle("fill", Res.w-ui_margin*(max_waves-(i-1))-wave_radius, ui_margin+Font:getHeight()+wave_radius, r)
     end
     Color.reset()
+
+    if self.player_dead then
+        self:draw_dead()
+    end
+end
+
+function Game:draw_dead()
+    love.graphics.setColor(Color.fg)
+    local s
+
+    s = "you died!"
+    local y = 110+self.dead_anim*20
+    love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
+    
+    y = y+Font:getHeight()
+    s = "press [r] to restart"
+    love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
+
+    Color.reset()
+    
+    y = y+Font:getHeight()*2
+    if self.ram_full then
+        love.graphics.setColor(Color.ram)
+        s = "ERR_RAM_FULL"
+    else
+        love.graphics.setColor(Color.health)
+        s = "ERR_NO_HEALTH"
+    end
+    love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
+    Color.reset()
 end
 
 function Game:add_ram(v)
@@ -250,6 +337,7 @@ local draw_order = {
     "moving_enemy",
     "static_enemy",
     "shooting_enemy",
+    "fly_enemy",
     "bullet",
     "warning",
     "upgrade",

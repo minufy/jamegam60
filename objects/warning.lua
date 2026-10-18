@@ -22,7 +22,7 @@ function Warning:update(dt)
         self.cb()
         self.remove = true
     end
-    if Game.choosing_upgrade or Game.player_dead then
+    if Game.pause_summon or Game.player_dead then
         self.remove = true
     end
 end

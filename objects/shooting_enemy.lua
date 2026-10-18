@@ -8,7 +8,7 @@ require("objects.enemy.base")(ShootingEnemy)
 
 local shoot_time = 70
 local damage = 1
-local bullet_speed = 2
+local bullet_speed = 1.5
 
 function ShootingEnemy.new(x, y)
     local self = setmetatable({}, ShootingEnemy)
