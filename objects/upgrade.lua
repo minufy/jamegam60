@@ -96,7 +96,7 @@ local upgrades = {
         cb = function (player)
             player.shotgun = true
             player.bullet_life = player.bullet_life*0.25
-            player.bullet_time = player.bullet_time+7
+            player.bullet_time = player.bullet_time+8
         end
     },
 }
