@@ -8,12 +8,9 @@ local upgrades = {
         title = "RAM boost",
         desc = {
             {text = "more RAM", color = Color.blue},
-            {text = "slightly lower HEALTH", color = Color.red},
         },
         cb = function (player)
             Game.max_ram = Game.max_ram+5
-            player.max_health = player.max_health-1
-            player.health = player.max_health
         end
     },
     {
