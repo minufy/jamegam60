@@ -22,7 +22,7 @@ local upgrades = {
         },
         cb = function (player)
             player.bullet_speed = player.bullet_speed+10
-            player.damage = player.damage+0.4
+            player.damage = player.damage+1
             player.speed = player.speed-0.2
         end
     },
@@ -33,7 +33,7 @@ local upgrades = {
             {text = "explode at collision", color = Color.blue},
         },
         cb = function (player)
-            player.max_health = player.max_health+3
+            player.max_health = player.max_health+5
             player.health = player.max_health
             player.explode = true
         end
@@ -42,11 +42,13 @@ local upgrades = {
         title = "machinegun",
         desc = {
             {text = "lower shoot delay", color = Color.blue},
-            {text = "way lower DAMAGE", color = Color.red},
+            {text = "lower DAMAGE", color = Color.red},
+            {text = "slightly shorter bullets", color = Color.red},
         },
         cb = function (player)
-            player.bullet_time = player.bullet_time-18
-            player.damage = player.damage-2
+            player.bullet_time = player.bullet_time-17
+            player.damage = player.damage-1.5
+            player.bullet_life = player.bullet_life*0.6
         end
     },
     {
@@ -55,7 +57,7 @@ local upgrades = {
             {text = "more DAMAGE", color = Color.blue},
         },
         cb = function (player)
-            player.damage = player.damage+0.5
+            player.damage = player.damage+1.5
         end
     },
     {
@@ -63,10 +65,12 @@ local upgrades = {
         desc = {
             {text = "more SPEED", color = Color.blue},
             {text = "slightly lower shoot delay", color = Color.blue},
+            {text = "slightly shorter bullets", color = Color.red}
         },
         cb = function (player)
-            player.speed = player.speed+0.8
+            player.speed = player.speed+0.7
             player.bullet_time = player.bullet_time-9
+            player.bullet_life = player.bullet_life*0.6
         end
     },
     {
@@ -78,19 +82,19 @@ local upgrades = {
         },
         cb = function (player)
             player.rocket = true
-            player.bullet_time = player.bullet_time+18
-            player.bullet_speed = player.bullet_speed-2.5
+            player.bullet_time = player.bullet_time+8
+            player.bullet_speed = player.bullet_speed-1
         end
     },
     {
         title = "shotgun",
         desc = {
             {text = "fire multiple bullets", color = Color.blue},
-            {text = "shorter bullts", color = Color.red},
+            {text = "shorter bullets", color = Color.red},
         },
         cb = function (player)
             player.shotgun = true
-            player.bullet_life = 20
+            player.bullet_life = player.bullet_life*0.3
         end
     },
 }

@@ -91,6 +91,7 @@ end
 
 local box_w, box_h = 400, 300
 local enemy_spawn_time = 80
+local short_enemy_spawn_time = 70
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5
@@ -151,6 +152,9 @@ function Game:draw_ending()
 end
 
 function Game:add_kill()
+    if self.pause_summon then
+        return
+    end
     self.kills = self.kills+1
     if self.kills >= self.kills_per_wave then
         self:next_wave()
@@ -190,6 +194,9 @@ end
 function Game:upgrade_ended()
     self.pause_summon = false
     self.wave = self.wave+1
+    if self.wave == 5 then
+        self.enemy_spawn_time = short_enemy_spawn_time
+    end
 end
 
 function Game:pick_enemy(wave)
@@ -372,12 +379,12 @@ function Game:draw_dead()
     Color.reset()
     
     y = y+Font:getHeight()*2
-    if self.ram_full then
-        love.graphics.setColor(Color.ram)
-        s = "ERR_RAM_FULL"
-    else
+    if self.player.health == 0 then
         love.graphics.setColor(Color.health)
         s = "ERR_NO_HEALTH"
+    else
+        love.graphics.setColor(Color.ram)
+        s = "ERR_RAM_FULL"
     end
     love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
     Color.reset()

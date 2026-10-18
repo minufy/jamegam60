@@ -27,6 +27,9 @@ return function (Player)
     end
 
     function Player:hurt(damage, _, _)
+        if self.explode then
+            self:explosion()
+        end
         self.hit_timer = hit_time
         self.health = self.health-damage
         Camera:shake(3)

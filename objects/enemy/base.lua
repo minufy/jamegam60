@@ -53,6 +53,9 @@ return function (Enemy)
     end
 
     function Enemy:die()
+        if self.remove then
+            return
+        end
         self.remove = true
         for _ = 1, 4 do
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))

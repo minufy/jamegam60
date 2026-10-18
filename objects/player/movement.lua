@@ -2,7 +2,7 @@ local acc_damp = 0.2
 local dec_damp = 0.1
 local base_speed = 1.5
 local base_bullet_time = 27
-local min_bullet_time = 10
+local min_bullet_time = 8
 local base_damage = 3
 local base_bullet_speed = 5.5
 local base_bullet_life = 100
@@ -93,7 +93,7 @@ return function (Player)
         local sin = math.sin(dir)
         local x = self.x+self.w/2+cos*0.9*self.w
         local y = self.y+self.h/2+sin*0.9*self.h
-        Game:add(Bullet.new(x, y, dir, self.bullet_speed, self.damage, false, self.rocket))
+        Game:add(Bullet.new(x, y, dir, self.bullet_speed, self.damage, false, self.rocket, self.bullet_life))
     end
 
     function Player:fire()

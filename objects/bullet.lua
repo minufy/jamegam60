@@ -17,7 +17,7 @@ function Bullet.new(x, y, dir, speed, damage, enemy_bullet, rocket, life)
     self.h = self.radius
     self.damage = damage
     self.rocket = rocket or false
-    self.life = life or 100
+    self.life = life or 45
     self.enemy_bullet = enemy_bullet or false
     self.cbs = {
         hit = function (other)
