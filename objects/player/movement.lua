@@ -5,6 +5,7 @@ local base_bullet_time = 27
 local min_bullet_time = 10
 local base_damage = 3
 local base_bullet_speed = 5.5
+local base_bullet_life = 100
 
 return function (Player)
     function Player:init_movement()
@@ -16,7 +17,10 @@ return function (Player)
         self.bullet_timer = 0
         self.bullet_time = base_bullet_time
         self.bullet_speed = base_bullet_speed
+        self.bullet_life = base_bullet_life
         self.damage = base_damage
+
+        self.rocket = false
 
         self.draw_bounce = 0
 
@@ -92,7 +96,7 @@ return function (Player)
         self.my = self.my-sin*self.damage*0.5
         local x = self.x+self.w/2+cos*0.9*self.w
         local y = self.y+self.h/2+sin*0.9*self.h
-        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage))
+        Game:add(Bullet.new(x, y, self.dir, self.bullet_speed, self.damage, false, self.rocket))
         self.bullet_timer = self.bullet_time
         Camera:shake(2)
         for _ = 1, 3 do

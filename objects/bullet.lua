@@ -6,7 +6,7 @@ local dists = {
     player = TILE_SIZE*0.8,
 }
 
-function Bullet.new(x, y, dir, speed, damage, enemy_bullet)
+function Bullet.new(x, y, dir, speed, damage, enemy_bullet, rocket, life)
     local self = setmetatable({}, Bullet)
     self.x = x
     self.y = y
@@ -16,6 +16,8 @@ function Bullet.new(x, y, dir, speed, damage, enemy_bullet)
     self.w = self.radius
     self.h = self.radius
     self.damage = damage
+    self.rocket = rocket or false
+    self.life = life or 100
     self.enemy_bullet = enemy_bullet or false
     self.cbs = {
         hit = function (other)
@@ -26,7 +28,19 @@ function Bullet.new(x, y, dir, speed, damage, enemy_bullet)
     return self
 end
 
+local dir_damp = 0.2
 function Bullet:update(dt)
+    self.life = self.life-dt
+    if self.life < 0 then
+        self:die()
+    end
+    local mouse_x = Input:get_x()+Camera.x
+    local mouse_y = Input:get_y()+Camera.y
+    if self.rocket then
+        local dir = math.atan2(mouse_y-self.y, mouse_x-self.x)
+        local diff = (dir - self.dir+math.pi)%(2*math.pi)-math.pi
+        self.dir = self.dir+diff*dir_damp*dt
+    end
     self.x = self.x+math.cos(self.dir)*self.speed*dt
     self.y = self.y+math.sin(self.dir)*self.speed*dt
     if Game:col(self, FILTERS.wall) then
