@@ -1,7 +1,7 @@
 local move_damp = 0.1
 
 return function (Enemy)
-    function Enemy:base_init()
+    function Enemy:base_init(usage)
         self.mx = 0
         self.my = 0
         
@@ -18,8 +18,9 @@ return function (Enemy)
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(10, 15)))
         end
         self.time_offset = math.random(1, 100)*10
-        
-        Game:add_ram(1)
+        self.usage = usage or 1
+
+        Game:add_ram(self.usage)
     end
 
     function Enemy:base_update(dt)
@@ -56,7 +57,7 @@ return function (Enemy)
         for _ = 1, 4 do
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
         end
-        Game:add_ram(-1)
+        Game:add_ram(-self.usage)
         Game:add_kill()
         Audio.play("kill", RandomPitch())
     end

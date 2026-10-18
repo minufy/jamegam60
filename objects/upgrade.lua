@@ -31,10 +31,12 @@ local upgrades = {
         title = "healthy",
         desc = {
             {text = "more HEALTH", color = Color.blue},
+            {text = "explode at collision", color = Color.blue},
         },
         cb = function (player)
             player.max_health = player.max_health+3
             player.health = player.max_health
+            player.explode = true
         end
     },
     {
@@ -44,7 +46,7 @@ local upgrades = {
             {text = "way lower DAMAGE", color = Color.red},
         },
         cb = function (player)
-            player.bullet_time = player.bullet_time-19
+            player.bullet_time = player.bullet_time-18
             player.damage = player.damage-2
         end
     },
@@ -65,7 +67,7 @@ local upgrades = {
         },
         cb = function (player)
             player.speed = player.speed+0.8
-            player.bullet_time = player.bullet_time*0.8
+            player.bullet_time = player.bullet_time-9
         end
     },
 }

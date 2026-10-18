@@ -13,7 +13,7 @@ function StaticEnemy.new(x, y)
     self.x = x-self.w/2
     self.y = y-self.h/2
     self.health = 3.4
-    self:base_init()
+    self:base_init(1.5)
     return self
 end
 

@@ -2,6 +2,7 @@ local acc_damp = 0.2
 local dec_damp = 0.1
 local base_speed = 1.5
 local base_bullet_time = 27
+local min_bullet_time = 10
 local base_damage = 3
 local base_bullet_speed = 5.5
 
@@ -72,7 +73,7 @@ return function (Player)
     function Player:aim_and_attack(dt)
         local mouse_x = Input:get_x()+Camera.x
         local mouse_y = Input:get_y()+Camera.y
-        self.dir = math.atan2(mouse_y-self.y, mouse_x-self.x)
+        self.dir = math.atan2(mouse_y-(self.y+self.h/2), mouse_x-(self.x+self.w/2))
         if self.bullet_timer <= 0 then
             if Input.mb[1].down then
                 self:fire()
@@ -102,6 +103,9 @@ return function (Player)
     end
 
     function Player:update_movement(dt)
+        if self.bullet_time < min_bullet_time then
+            self.bullet_time = min_bullet_time
+        end
         self:move(dt)
         self:aim_and_attack(dt)
     end
