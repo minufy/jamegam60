@@ -48,7 +48,7 @@ local upgrades = {
         cb = function (player)
             player.bullet_time = player.bullet_time-17
             player.damage = player.damage-1.5
-            player.bullet_life = player.bullet_life*0.3
+            player.bullet_life = player.bullet_life*0.4
         end
     },
     {
