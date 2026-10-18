@@ -6,9 +6,9 @@ Image.shooting_enemy:setWrap("repeat", "repeat")
 
 require("objects.enemy.base")(ShootingEnemy)
 
-local shoot_time = 70
+local shoot_time = 65
 local damage = 1
-local bullet_speed = 1.5
+local bullet_speed = 1.6
 
 function ShootingEnemy.new(x, y)
     local self = setmetatable({}, ShootingEnemy)
@@ -37,7 +37,7 @@ function ShootingEnemy:fire()
     self.my = self.my-sin*damage*0.5
     local x = self.x+self.w/2+cos*self.w
     local y = self.y+self.h/2+sin*self.h
-    Game:add(Bullet.new(x, y, self.dir, bullet_speed, damage, true))
+    Game:add(Bullet.new(x, y, self.dir, bullet_speed, damage, true, false, 200))
     for _ = 1, 3 do
         Game:add(SparkParticle.new(x, y, self.dir+math.random(-10, 10)*0.05, math.random(2, 4), math.random(2, 4)))
     end

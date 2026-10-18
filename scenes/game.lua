@@ -90,8 +90,8 @@ function Game:draw_bg()
 end
 
 local box_w, box_h = 400, 300
-local enemy_spawn_time = 80
-local short_enemy_spawn_time = 70
+local enemy_spawn_time = 82
+local short_enemy_spawn_time = 65
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5
@@ -197,6 +197,7 @@ function Game:upgrade_ended()
     if self.wave == 5 then
         self.enemy_spawn_time = short_enemy_spawn_time
     end
+    self.player.health = self.player.max_health
 end
 
 function Game:pick_enemy(wave)

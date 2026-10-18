@@ -14,7 +14,7 @@ function FlyEnemy.new(x, y)
     self.h = Image.fly_enemy:getHeight()
     self.x = x-self.w/2
     self.y = y-self.h/2
-    self.health = 3
+    self.health = 4
     self:base_init()
     return self
 end

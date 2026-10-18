@@ -10,7 +10,7 @@ local upgrades = {
             {text = "more RAM", color = Color.blue},
         },
         cb = function (player)
-            Game.max_ram = Game.max_ram+5
+            Game.max_ram = Game.max_ram+6
         end
     },
     {
@@ -43,12 +43,12 @@ local upgrades = {
         desc = {
             {text = "lower shoot delay", color = Color.blue},
             {text = "lower DAMAGE", color = Color.red},
-            {text = "slightly shorter bullets", color = Color.red},
+            {text = "shorter bullets", color = Color.red},
         },
         cb = function (player)
             player.bullet_time = player.bullet_time-17
             player.damage = player.damage-1.5
-            player.bullet_life = player.bullet_life*0.6
+            player.bullet_life = player.bullet_life*0.3
         end
     },
     {
@@ -78,11 +78,9 @@ local upgrades = {
         desc = {
             {text = "bullets follow cursor", color = Color.blue},
             {text = "slower bullets", color = Color.red},
-            {text = "longer shoot delay", color = Color.red},
         },
         cb = function (player)
             player.rocket = true
-            player.bullet_time = player.bullet_time+8
             player.bullet_speed = player.bullet_speed-1
         end
     },
@@ -91,10 +89,12 @@ local upgrades = {
         desc = {
             {text = "fire multiple bullets", color = Color.blue},
             {text = "shorter bullets", color = Color.red},
+            {text = "longer shoot delay", color = Color.red},
         },
         cb = function (player)
             player.shotgun = true
-            player.bullet_life = player.bullet_life*0.3
+            player.bullet_life = player.bullet_life*0.25
+            player.bullet_time = player.bullet_time+7
         end
     },
 }
@@ -103,7 +103,7 @@ upgrades = lume.shuffle(upgrades)
 local margin = 6
 function Upgrade.new(x, y, index)
     local self = setmetatable({}, Upgrade)
-    self.w = 125
+    self.w = 130
     self.h = Font:getHeight()*4.5+margin*2
     self.x = x-self.w/2
     self.y = y-self.h/2
