@@ -41,6 +41,7 @@ function Game:draw()
 
     self:draw_objects()
     self:draw_tutorial()
+    self:draw_new_enemy()
 
     Camera:stop()
 
@@ -93,7 +94,7 @@ local enemy_spawn_time = 80
 local base_ram = 5
 local base_kills_per_wave = 7
 local max_waves = 5
--- local base_kills_per_wave = 1
+local base_kills_per_wave = 1
 -- local max_waves = 2
 local ending_time = 100
 function Game:reset()
@@ -119,6 +120,28 @@ function Game:reset()
     self.ending = false
     self.upgrades = {}
     self.ram_full = false
+end
+
+local new_enemies = {
+    nil,
+    "moving_enemy",
+    "shooting_enemy",
+    "fly_enemy"
+}
+function Game:draw_new_enemy()
+    if self.pause_summon then
+        local new_enemy = new_enemies[self.wave+1]
+        if new_enemy then
+            love.graphics.setColor(Color.alpha(Color.fg, 0.7))
+            love.graphics.setFont(Font)
+            local s = "new enemy incoming: "
+            local x = Game.box.w/2+WALL_WIDTH/2-(Font:getWidth(s)+Image[new_enemy]:getWidth())/2
+            local y = Game.box.h-40
+            love.graphics.print(s, x, y-Font:getHeight()/2)
+            love.graphics.draw(Image[new_enemy], x+Font:getWidth(s), y-Image[new_enemy]:getHeight()/2)
+            Color.reset()
+        end
+    end
 end
 
 function Game:draw_ending()
@@ -278,7 +301,7 @@ local tutorial_text = "wasd to move\nclick to shoot"
 function Game:draw_tutorial()
     if self.tutorial then
         love.graphics.setFont(Font)
-        love.graphics.setColor(Color.fg)
+        love.graphics.setColor(Color.alpha(Color.fg, 0.7))
         love.graphics.print(tutorial_text, self.player.x+ui_margin*2, self.player.y)
         Color.reset()
     end
