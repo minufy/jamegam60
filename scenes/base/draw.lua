@@ -1,6 +1,7 @@
 local wave_radius = 4
 local ui_margin = 10
 local gap = Font:getHeight()*2+ui_margin*0.5
+local parallax = 0.7
 local draw_order = {
     "box",
     "moving_enemy",
@@ -133,5 +134,22 @@ return function (Scene)
             love.graphics.print(tutorial_text, self.player.x+ui_margin*2, self.player.y)
             Color.reset()
         end
+    end
+
+    function Scene:draw_bg()
+        local grid_unit = 30
+        local offset_x = (Camera.x*parallax-Camera.shake_x)%grid_unit
+        local offset_y = (Camera.y*parallax-Camera.shake_y)%grid_unit
+        love.graphics.setColor(1, 1, 1, 0.05)
+        love.graphics.setLineWidth(1)
+        for x = 0, Res.w/grid_unit+1 do
+            local px = x*grid_unit-offset_x
+            love.graphics.line(px, 0, px, Res.h)
+        end
+        for y = 0, Res.h/grid_unit do
+            local py = y*grid_unit-offset_y
+            love.graphics.line(0, py, Res.w, py)
+        end
+        Color.reset()
     end
 end
