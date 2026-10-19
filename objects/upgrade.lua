@@ -9,20 +9,19 @@ function Upgrade.new(x, y, upgrade)
     self.x = x-self.w/2
     self.y = y-self.h/2
     self.upgrade = upgrade
-    self.cbs = {
-        player = function (other)
-            self:select(other)
-        end,
-    }
     for _ = 1, 4 do
         Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(15, 20)))
     end
     return self
 end
 
+function Upgrade:col_player(other)
+    self:select(other)
+end
+
 function Upgrade:update(dt)
     if Game.pause_summon then
-        Game:col(self, FILTERS.player, self.cbs.player)
+        Game:col(self, FILTERS.player, self.col_player)
     else
         self:die()
     end

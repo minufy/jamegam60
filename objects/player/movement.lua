@@ -25,22 +25,13 @@ return function (Player)
         self.shotgun = false
 
         self.draw_bounce = 0
-
-        self.movement_cbs = {
-            x = function (other)
-                self:cb_x(other)
-            end,
-            y = function (other)
-                self:cb_y(other)
-            end,
-        }
     end
 
-    function Player:cb_x(other)
+    function Player:col_x(other)
         Physics.solve_x(self, self.mx, other)
     end
 
-    function Player:cb_y(other)
+    function Player:col_y(other)
         Physics.solve_y(self, self.my, other)
     end
 
@@ -58,7 +49,7 @@ return function (Player)
             self.mx = self.mx+(self.speed*ix-self.mx)*acc_damp*dt
         end
         self.x = self.x+self.mx*dt
-        Game:col(self, FILTERS.wall, self.movement_cbs.x)
+        Game:col(self, FILTERS.wall, self.col_x)
         
         local iy = 0
         if Input.down.down then
@@ -73,7 +64,7 @@ return function (Player)
             self.my = self.my+(self.speed*iy-self.my)*acc_damp*dt
         end
         self.y = self.y+self.my*dt
-        Game:col(self, FILTERS.wall, self.movement_cbs.y)
+        Game:col(self, FILTERS.wall, self.col_y)
     end
 
     function Player:aim_and_attack(dt)

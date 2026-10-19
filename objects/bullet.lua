@@ -19,13 +19,12 @@ function Bullet.new(x, y, dir, speed, damage, enemy_bullet, rocket, life)
     self.rocket = rocket or false
     self.life = life or 45
     self.enemy_bullet = enemy_bullet or false
-    self.cbs = {
-        hit = function (other)
-            other:hurt(self.damage, math.cos(self.dir), math.sin(self.dir))
-            self.remove = true
-        end
-    }
     return self
+end
+
+function Bullet:col_hit(other)
+    other:hurt(self.damage, math.cos(self.dir), math.sin(self.dir))
+    self.remove = true
 end
 
 local dir_damp = 0.2
@@ -50,12 +49,12 @@ function Bullet:update(dt)
         if Game.pause_summon then
             self:die()
         end
-        Game:dist(self, FILTERS.player, self.cbs.hit, dists.player)
+        Game:dist(self, FILTERS.player, self.col_hit, dists.player)
     else
         if Game.player_dead then
             self:die()
         end
-        Game:dist(self, FILTERS.enemy, self.cbs.hit, dists.enemy)
+        Game:dist(self, FILTERS.enemy, self.col_hit, dists.enemy)
     end
 end
 
