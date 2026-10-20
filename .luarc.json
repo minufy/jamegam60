@@ -1,0 +1,22 @@
+{
+    "workspace.library": [
+        "${addons}/love2d/module/library"
+    ],
+    "runtime.version": "LuaJIT",
+    "runtime.special": {
+        "love.filesystem.load": "loadfile"
+    },
+    "workspace.checkThirdParty": false,
+    "completion.autoRequire": false,
+    "diagnostics.globals": [
+        "rgb",
+        "rgba"
+    ],
+    "workspace.ignoreDir": [
+        "modules/"
+    ],
+    "workspace.ignoreSubmodules": false,
+    "diagnostics.disable": [
+        "duplicate-set-field"
+    ]
+}
