@@ -4,7 +4,7 @@ Image.new("player")
 
 return function (Player)
     function Player:init_draw()
-        
+
     end
 
     function Player:update_draw(dt)

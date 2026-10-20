@@ -14,7 +14,10 @@ require("rebase.utils")
 
 require("scenes.sm")
 
+local debug_font
+
 function love.load()
+    debug_font = love.graphics.newFont(20)
     require("init")()
     Log:init()
     Res:init()
@@ -28,8 +31,8 @@ function love.update(dt)
     dt = math.min(dt*60, 1.5)
     Input:update()
     SM:update(dt)
-    Input:reset_wheel()
     Log:update(dt)
+    Input:reset_wheel()
     if Input.fullscreen.pressed then
         Res:toggle_fullscreen()
     end
@@ -41,7 +44,8 @@ function love.draw()
     Res:after()
     Log:draw()
     if CONSOLE then
-        love.graphics.print(tostring(love.timer.getFPS()))
+        love.graphics.setFont(debug_font)
+        love.graphics.print(tostring(love.timer.getFPS()), 0, Log.smooth_h)
     end
 end
 

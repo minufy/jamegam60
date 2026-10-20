@@ -50,7 +50,7 @@ return function (Player)
         end
         self.x = self.x+self.mx*dt
         Game:col(self, FILTERS.wall, self.col_x)
-        
+
         local iy = 0
         if Input.down.down then
             iy = iy+1
@@ -79,7 +79,7 @@ return function (Player)
             self.bullet_timer = self.bullet_timer-dt
         end
     end
-    
+
     function Player:summon_bullet(dir)
         local cos = math.cos(dir)
         local sin = math.sin(dir)
