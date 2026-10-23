@@ -13,7 +13,7 @@ function SparkParticle.new(x, y, angle, speed, size, color)
     self.y = y
     self.w = size
     self.h = size
-    
+
     self.angle = angle
     self.speed = speed
     self.size = size

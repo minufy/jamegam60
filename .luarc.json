@@ -1,19 +1,16 @@
 {
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
     "workspace.library": [
-        "${addons}/love2d/module/library"
+        "C:/lua-addons/love2d/library"
     ],
     "runtime.version": "LuaJIT",
     "runtime.special": {
         "love.filesystem.load": "loadfile"
     },
     "workspace.checkThirdParty": false,
-    "completion.autoRequire": false,
     "diagnostics.globals": [
         "rgb",
         "rgba"
-    ],
-    "workspace.ignoreDir": [
-        "modules/"
     ],
     "workspace.ignoreSubmodules": false,
     "diagnostics.disable": [

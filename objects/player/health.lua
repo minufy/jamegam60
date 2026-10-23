@@ -8,11 +8,11 @@ return function (Player)
         self.smooth_health = self.health
         self.hit_timer = 0
     end
-    
+
     function Player:update_health(dt)
         self.hit_timer = self.hit_timer-dt
     end
-    
+
     function Player:die()
         if Game.player_dead then
             return

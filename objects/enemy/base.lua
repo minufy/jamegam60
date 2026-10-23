@@ -4,16 +4,16 @@ return function (Enemy)
     function Enemy:base_init(usage)
         self.mx = 0
         self.my = 0
-        
+
         for _ = 1, 3 do
             Game:add(Particle.new(self.x+self.w/2, self.y+self.h/2, math.random(-10, 10), math.random(-10, 10), math.random(10, 15)))
         end
         self.time_offset = math.random(1, 100)*10
         self.usage = usage or 1
-        
+
         Game:add_ram(self.usage)
     end
-    
+
     function Enemy:col_x(other)
         Physics.solve_x(self, self.mx, other)
     end
@@ -47,7 +47,7 @@ return function (Enemy)
         if self.health <= 0 then
             self:die()
         end
-        
+
         Audio.play("hurt", RandomPitch())
     end
 

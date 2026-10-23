@@ -19,7 +19,7 @@ function Player.new(x, y)
     self:init_draw()
     self:init_movement()
     self:init_health()
-    
+
     self:update_camera()
     Camera:snap_back()
     return self

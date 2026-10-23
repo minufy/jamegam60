@@ -50,7 +50,7 @@ end
 function Game:draw()
     love.graphics.draw(Image.bg)
     self:draw_bg()
-    
+
     Shaders.shadow:start()
     Camera:start()
 

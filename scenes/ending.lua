@@ -1,7 +1,7 @@
 Ending = {}
 
 function Ending:init()
-    
+
 end
 
 function Ending:update(dt)

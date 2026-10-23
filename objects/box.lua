@@ -28,15 +28,15 @@ function Box:update(dt)
     self.walls.up.x = self.target_x
     self.walls.up.y = self.target_y
     self.walls.up.w = self.target_w
-    
+
     self.walls.down.x = self.target_x
     self.walls.down.y = self.target_y+self.target_h
     self.walls.down.w = self.target_w
-    
+
     self.walls.left.x = self.target_x
     self.walls.left.y = self.target_y
     self.walls.left.h = self.target_h
-    
+
     self.walls.right.x = self.target_x+self.target_w
     self.walls.right.y = self.target_y
     self.walls.right.h = self.target_h

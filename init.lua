@@ -5,13 +5,13 @@ return function ()
 
     Input.refresh = Input.new({"f5"})
     Input.fullscreen = Input.new({"f11"})
-    
+
     Input.right = Input.new({"right", "d"})
     Input.left = Input.new({"left", "a"})
     Input.up = Input.new({"up", "w"})
     Input.down = Input.new({"down", "s"})
     Input.restart = Input.new({"r"})
-    
+
     Audio.new("fade", 0.3)
     Audio.new("die", 0.3)
     Audio.new("kill", 0.2)
@@ -26,11 +26,11 @@ return function ()
         channel = "music",
         loop = "true",
     })
-    
+
     Camera.x_damp = 0.2
     Camera.y_damp = 0.2
     Camera.shake_damp = 0.3
-    
+
     SMOOTH_DAMP = 0.15
 
     Color.fg = rgb(237, 231, 249)
@@ -53,8 +53,8 @@ return function ()
     TILE_NAMES = {
         "tile",
     }
-    
+
     DECAL_NAMES = {
-        
+
     }
 end

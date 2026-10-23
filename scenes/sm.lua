@@ -16,7 +16,7 @@ end
 FADE_TIME = 20
 function SM:update(dt)
     self.current:update(dt)
-    
+
     if self.fading_in then
         self.fade_in = self.fade_in+dt
         if self.fade_in > FADE_TIME then
@@ -37,7 +37,7 @@ end
 
 function SM:draw()
     self.current:draw()
-    
+
     if self.fading_in then
         love.graphics.setColor(0, 0, 0)
         love.graphics.rectangle("fill", Res.w*(Ease.out(self.fade_in/FADE_TIME)-1), 0, Res.w, Res.h)

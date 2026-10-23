@@ -53,13 +53,13 @@ return function (Scene)
         s = "you died!"
         local y = 110+self.dead_anim*20
         love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
-        
+
         y = y+Font:getHeight()
         s = "press [r] to restart"
         love.graphics.print(s, Res.w/2-Font:getWidth(s)/2, y)
 
         Color.reset()
-        
+
         y = y+Font:getHeight()*2
         if self.player.health == 0 then
             love.graphics.setColor(Color.health)

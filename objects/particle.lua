@@ -11,10 +11,10 @@ function Particle.new(x, y, mx, my, size, color)
     self.y = y
     self.w = size
     self.h = size
-    
+
     self.mx = mx*0.1
     self.my = my*0.1
-    
+
     self.size = size
     self.color = color or Color.fg
     return self
@@ -32,7 +32,7 @@ function Particle:update(dt)
 
     self.mx = self.mx-self.mx*move_damp*dt
     self.my = self.my-self.my*move_damp*dt
-    
+
     self.size = self.size-self.size*size_damp*dt
     if self.size < size_thresh then
         self.remove = true
