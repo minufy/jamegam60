@@ -8,6 +8,7 @@
         "love.filesystem.load": "loadfile"
     },
     "workspace.checkThirdParty": false,
+    "completion.autoRequire": false,
     "diagnostics.globals": [
         "rgb",
         "rgba"
