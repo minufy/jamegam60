@@ -1,0 +1,10 @@
+[
+  {
+    "label": "run love",
+    "command": "love .",
+    "env": {
+        "CONSOLE": "true"
+    },
+    "reveal": "never"
+  }
+]
